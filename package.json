@@ -1,0 +1,13 @@
+{
+  "name": "hackerFlights",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "^1.3.12",
+    "body-parser": "^1.11.0",
+    "errorhandler": "^1.3.3",
+    "express": "^4.11.2",
+    "method-override": "^2.3.1",
+    "request": "^2.53.0",
+    "serve-static": "^1.8.1"
+  }
+}
