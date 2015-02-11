@@ -25,7 +25,7 @@ switch(app.get('env'))
 		break;
 }
 
-app.get('/hackathons', routes.indexResponseHandler);
+app.get('/hackathons', routes.hackathonsListResponseHandler);
 
 app.get('*', function(req, res){
 	res.sendFile(__dirname + '/client/views/index.html');
