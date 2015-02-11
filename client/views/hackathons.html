@@ -1,0 +1,22 @@
+<div class="content">
+	<table ng-controller = "myCtrl" class="table table-striped">
+		<thead >
+				<tr>
+					<td>Hackathon</td>
+					<td>Dates</td>
+					<td>location</td>
+					<td>Price</td>
+					<td>Book</td>
+				</tr>
+		</thead>
+		<tbody ng-repeat = "items in data">
+			<tr>
+				<td>{{items.hackathonName}}</td>
+				<td>{{items.dates[0][0]}}/{{items.dates[0][1]}}/{{items.dates[0][2]}} - {{items.dates[items.dates.length -1 ][0]}}/{{items.dates[items.dates.length -1 ][1]}}/{{items.dates[items.dates.length -1 ][2]}}</td>
+				<td>{{items.location.city}}, {{items.location.state}}</td>
+				<td>{{items.startingPrice}}</td>
+				<td>See more deals >></td>
+			<tr>
+		</tbody>
+	</table>
+</div>
