@@ -1,3 +1,6 @@
+var request = require('request');
+var apiKeys = require("./config.js");
+
 var LocationInfo = function(){}
 
 LocationInfo.prototype.toLongtudeAndLatitude = function(city, state, callback){
