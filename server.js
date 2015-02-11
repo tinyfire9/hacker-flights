@@ -37,7 +37,7 @@ setInterval(function(){
 	Hackathons.findInfo("MSP", function(error, info){
 		console.log("Updating data!");
 		info = JSON.stringify(info);
-		fs.writeFileSync("./model/uptodateData.json", info);
+		fs.writeFileSync("./model/uptodateData.json");
 	});
 }, 60000 * 60 * 12);
 
