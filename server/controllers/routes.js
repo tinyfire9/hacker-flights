@@ -1,11 +1,27 @@
 var HackathonsInfo = require('../library/hackathonsInfo.js');
-var fs = require('fs');
+var Airport = require('../library/airport.js');
 
 var Hackathons = new HackathonsInfo();
-
+var Airport = new Airport();
+var airportLocation;
 exports.hackathonsListResponseHandler = function(req, res){
-	fs.readFile('./server/model/uptodateData.json', function(error, data){
-		data = JSON.parse(data.toString('ascii'));
-		res.json(data);
+	airportLocation = req.params.airportLocation;
+	Airport.exists(airportLocation, function(error, data){
+		if(data == null)
+		{
+			res.json(null);
+		}
+		else
+		{
+			Hackathons.findInfo(data.code, function(error, info){
+				if(error)
+				{
+					throw Error(error);
+				}
+				console.log(info);
+				res.json(info);
+			});		
+		}
 	});
+
 }
