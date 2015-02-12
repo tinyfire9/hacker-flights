@@ -1,13 +1,21 @@
-app.controller("myCtrl" , ['$scope', '$resource', 
-	function($scope, $resource){
-		var Hackathons = new $resource('/hackathons');
-
-		$scope.diplayHackathons = function(){
-			Hackathons.query(function(data){
-				console.log("Clinetside req made~");
-				console.log(data);
-				$scope.hackathons = data;
-			});
+app.controller("hackathonsListController" , ['$scope', '$resource', '$window',
+	function($scope, $resource, $window)
+	{
+		$scope.displayHackathons = function(){
+			var Hackathons = new $resource('/hackathons/' + $scope.airportLocation);
+			$scope.hackathons = Hackathons.query(function(data){
+					//console.log(data);
+					if(!data)
+					{
+						$scope.hackathons = "Invalid airport location :(";
+						$window.location.href = "/";
+					}
+					else
+					{
+						$scope.hackathons = data;
+					}
+				});
 		}
 	}
 ]);
+
