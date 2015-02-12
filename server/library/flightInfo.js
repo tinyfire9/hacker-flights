@@ -27,7 +27,7 @@ var requestBody = JSON.stringify({
 						    ]
 						  }
 						});
-
+//console.log(requestBody);
 request.post({ 
 			//Google QPX-Express API
 			"url": "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + apiKeys.googleapisKey,
@@ -38,7 +38,15 @@ request.post({
 
 			}, function(error, res, data){
 				data = JSON.parse(data);
-				callback(null, data.trips.tripOption[0].saleTotal);
+				//console.log(data);
+				if(!data.trips.tripOption)
+				{
+					callback(null, "N/A");
+				}
+				else
+				{
+					callback(null, data.trips.tripOption[0].saleTotal);
+				}
 			});
 }
 
