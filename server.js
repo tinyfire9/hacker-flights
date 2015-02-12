@@ -25,21 +25,13 @@ switch(app.get('env'))
 		break;
 }
 
-app.get('/hackathons', routes.hackathonsListResponseHandler);
+
+app.get('/hackathons/:airportLocation', routes.hackathonsListResponseHandler);
 
 app.get('*', function(req, res){
 	res.sendFile(__dirname + '/client/views/index.html');
 });
 
-
-
-setInterval(function(){
-	Hackathons.findInfo("MSP", function(error, info){
-		console.log("Updating data!");
-		info = JSON.stringify(info);
-		fs.writeFileSync("./model/uptodateData.json");
-	});
-}, 60000 * 60 * 12);
 
 app.listen(process.env.PORT || 3000, function(){
 	console.log("Server running ...")
