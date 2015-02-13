@@ -27,7 +27,7 @@ var requestBody = JSON.stringify({
 						    ]
 						  }
 						});
-//console.log(requestBody);
+
 request.post({ 
 			//Google QPX-Express API
 			"url": "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + apiKeys.googleapisKey,
