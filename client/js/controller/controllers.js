@@ -1,21 +1,20 @@
-app.controller("hackathonsListController" , ['$scope', '$resource', '$window',
-	function($scope, $resource, $window)
+app.controller("redirect" , ['$scope', '$location',
+	function($scope, $location)
 	{
-		$scope.displayHackathons = function(){
-			var Hackathons = new $resource('/hackathons/' + $scope.airportLocation);
-			$scope.hackathons = Hackathons.query(function(data){
-					//console.log(data);
-					if(!data)
-					{
-						$scope.hackathons = "Invalid airport location :(";
-						$window.location.href = "/";
-					}
-					else
-					{
-						$scope.hackathons = data;
-					}
-				});
+		$scope.displayHackathons = function()
+		{
+			console.log($scope.airportLocation);
+			$location.path('/hackathons/' + $scope.airportLocation);
 		}
 	}
 ]);
 
+app.controller("hackathonsList" , ['$scope', '$resource','$routeParams',
+	function($scope, $resource,$routeParams)
+	{
+		var hacks = new $resource('/hackathons/' + $routeParams.airportLocation);
+		hacks.query(function(data){
+			$scope.hackathons = data;
+		});
+	}
+]);
