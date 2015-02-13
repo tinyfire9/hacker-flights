@@ -41,7 +41,6 @@ Airport.prototype.exists = function(location, callback){
 				throw Error(error);
 			}
 			data = jsonpToJson(data.body.toString());
-			//console.log(data);
 			if(data.airports.length == 0)
 			{
 				info = null;
