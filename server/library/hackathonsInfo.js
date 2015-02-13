@@ -42,11 +42,11 @@ HackathonsInfo.prototype.findInfo = function(origin, callback){
 							"airportCode" :  nearestAirportInfo.code,
 							"startingPrice" : price
 						});
-						//console.log(hackathonsInfo + "---");
-						//console.log(hackathon + "<-index--arrayLeng->" + hackathons.length);
+
 						if(hackathon == hackathons.length - 1)
 						{
 							callback(null, hackathonsInfo);
+							hackathonsInfo = [];
 						}
 					});
 				});
