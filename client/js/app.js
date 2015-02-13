@@ -1,13 +1,15 @@
-var app = angular.module("myApp", ["ngRoute", "ngResource"]);
+var app = angular.module("myApp", ["ngRoute", "ngResource", "ngAnimate"]);
 
 app.config(['$routeProvider',  function($routeProvider){
 	
 	$routeProvider
 		.when('/', 
-			{templateUrl : "views/location.html"})
-		.when('/hackathons/:location', 
+			{
+				controller : "redirect"
+		})
+		.when('/hackathons/:airportLocation', 
 			{
 				templateUrl : "views/hackathons.html",
-				controller : "hackathonsListController"
+				controller : "hackathonsList"
 		});
 }]);
