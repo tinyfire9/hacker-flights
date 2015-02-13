@@ -1,0 +1,45 @@
+body{
+	background-image: url('../images/congruent_pentagon.png');
+}
+thead{
+	font-weight: bold;
+}
+.wrapper{
+	max-width: 60%;
+	margin-right: 20%;
+	margin-left: 20%;
+}
+.table{
+	max-width: 60%;
+	margin-right: 20%;
+	margin-left: 20%;
+}
+.ng-enter{
+	transition: 0.75s;
+	opacity: 0;
+}
+.ng-enter-stagger{
+	transition-delay: 0.1s;
+}
+.ng-enter-active{
+	opacity: 1;
+}
+.form-control{
+	width: 100%;
+}
+#subtitle{
+	margin-bottom: 30px;
+}
+.appName{
+	float:left;
+}
+.inputField{
+	margin-left: 300px;
+}
+.col-lg-6{
+	margin: 9%;
+}
+
+.fa{
+	margin-top: 200px;
+}
