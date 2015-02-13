@@ -8,13 +8,14 @@
 				<td>Booking</td>
 			</tr>
 	</thead>
+	
 	<tbody ng-repeat = "items in hackathons">
 		<tr>
 			<td>{{items.hackathonName}}</td>
 			<td>{{items.dates[0][0]}}/{{items.dates[0][1]}}/{{items.dates[0][2]}} - {{items.dates[items.dates.length -1 ][0]}}/{{items.dates[items.dates.length -1 ][1]}}/{{items.dates[items.dates.length -1 ][2]}}</td>
 			<td>{{items.location.city}}, {{items.location.state}}</td>
 			<td>{{items.startingPrice}}</td>
-			<td><a href="http://www.kayak.com/flights/">See more deals on Kayak</a></td>
+			<td><a href="http://www.kayak.com/flights/{{items.originalLocationCode}}/{{items.airportCode}}/{{items.dates[0][2]}}-{{items.dates[0][0]}}-{{items.dates[0][1]}}/{{items.dates[items.dates.length -1 ][2]}}-{{items.dates[items.dates.length -1 ][0]}}-{{items.dates[items.dates.length -1 ][1]}}">See more deals on Kayak</a></td>
 		<tr>
 	</tbody>
 </table>
