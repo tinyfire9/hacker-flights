@@ -6,8 +6,9 @@ var Airport = new Airport();
 var airportLocation;
 exports.hackathonsListResponseHandler = function(req, res){
 	airportLocation = req.params.airportLocation;
+	console.log('Departing from : ' + airportLocation + '~ working on request . . .');
 	Airport.exists(airportLocation, function(error, data){
-		if(data == null)
+		if(!data)
 		{
 			res.json(null);
 		}
@@ -18,7 +19,7 @@ exports.hackathonsListResponseHandler = function(req, res){
 				{
 					throw Error(error);
 				}
-				console.log(info);
+				//console.log(info); //for debugging purpose
 				res.json(info);
 			});		
 		}
