@@ -1,5 +1,4 @@
 var request = require('request');
-var apiKeys = require("./config.js");
 var LocationInfo = require('./locationInfo.js');
 var jsonpToJson = require('./jsonpToJson.js');
 
@@ -14,7 +13,7 @@ Airport.prototype.findNearestAirport = function(city, state, callback){
 			throw Error(error);
 		}
 		request.get({
-			"url" : "https://airport.api.aero/airport/nearest/" + location.latitude + "/" + location.longtude + "?user_key=" + apiKeys.sitaKey,
+			"url" : "https://airport.api.aero/airport/nearest/" + location.latitude + "/" + location.longtude + "?user_key=" + process.env.sitaKey,
 			"headers" : {"content-type" : "application/json"}
 		},function(error, res, data){
 			data = jsonpToJson(data);
@@ -33,7 +32,7 @@ Airport.prototype.findNearestAirport = function(city, state, callback){
 Airport.prototype.exists = function(location, callback){
 	var info;
 	request.get({
-			"url" : "https://airport.api.aero/airport/match/" + location + "?user_key=" + apiKeys.sitaKey,
+			"url" : "https://airport.api.aero/airport/match/" + location + "?user_key=" + process.env.sitaKey,
 			"headers" : {"content-type" : "application/json"}
 		},function(error, data){
 			if(error)

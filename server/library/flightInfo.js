@@ -1,5 +1,4 @@
 var request = require('request');
-var apiKeys = require("./config.js");
 
 var FlightInfo = function(){}
 
@@ -30,7 +29,7 @@ var requestBody = JSON.stringify({
 
 request.post({ 
 			//Google QPX-Express API
-			"url": "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + apiKeys.googleapisKey,
+			"url": "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + process.env.googleapisKey,
 				"headers": {
 					    'Content-Type': 'application/json'
 					},

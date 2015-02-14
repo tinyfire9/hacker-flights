@@ -1,6 +1,5 @@
 var Airport = require('./airport.js');
 var FlightInfo = require('./flightInfo.js');
-var fs = require('fs');
 var hackathonsInfo = [];
 var hackathons = require('../model/data.js')
 
