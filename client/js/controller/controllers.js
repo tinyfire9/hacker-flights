@@ -13,11 +13,17 @@ app.controller("hackathonsList" , ['$scope', '$resource','$routeParams',
 	function($scope, $resource,$routeParams)
 	{	
 		$scope.loading = true;
+		$scope.inputError = false;
 		var hacks = new $resource('/hackathons/' + $routeParams.airportLocation);
 		hacks.query(function(data){
+			if(data.length == 0)
+			{
+				$scope.inputError = true;
+			}
 			data = pad(data);
 			$scope.hackathons = data;
 			$scope.loading = false;	
+
 		});
 	}
 ]);
