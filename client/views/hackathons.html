@@ -3,8 +3,9 @@
 			<tr>
 				<td>Hackathon</td>
 				<td>Dates</td>
-				<td>location</td>
+				<td>location of the hackathon</td>
 				<td>Price</td>
+				<td>location of the nearest airport from<br> the location of the hackaton</td>
 				<td>Booking</td>
 			</tr>
 	</thead>
@@ -15,7 +16,10 @@
 			<td>{{items.dates[0][0]}}/{{items.dates[0][1]}}/{{items.dates[0][2]}} - {{items.dates[items.dates.length -1 ][0]}}/{{items.dates[items.dates.length -1 ][1]}}/{{items.dates[items.dates.length -1 ][2]}}</td>
 			<td>{{items.location.city}}, {{items.location.state}}</td>
 			<td>{{items.startingPrice}}</td>
-			<td><a href="http://www.kayak.com/flights/{{items.originalLocationCode}}/{{items.airportCode}}/{{items.dates[0][2]}}-{{items.dates[0][0]}}-{{items.dates[0][1]}}/{{items.dates[items.dates.length -1 ][2]}}-{{items.dates[items.dates.length -1 ][0]}}-{{items.dates[items.dates.length -1 ][1]}}">See more deals on Kayak</a></td>
+			<td>{{items.airportLocation}}</td>
+			<td>
+				<a href="http://www.kayak.com/flights/{{items.originalLocationCode}}-{{items.airportCode}}/{{items.dates[0][2]}}-{{items.dates[0][0]}}-{{items.dates[0][1]}}/{{items.dates[items.dates.length -1 ][2]}}-{{items.dates[items.dates.length -1 ][0]}}-{{items.dates[items.dates.length -1 ][1]}}">See more deals on Kayak</a>
+			</td>
 		<tr>
 	</tbody>
 </table>
