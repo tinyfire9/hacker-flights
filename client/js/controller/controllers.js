@@ -12,10 +12,12 @@ app.controller("redirect" , ['$scope', '$location',
 app.controller("hackathonsList" , ['$scope', '$resource','$routeParams',
 	function($scope, $resource,$routeParams)
 	{	
+		$scope.loading = true;
 		var hacks = new $resource('/hackathons/' + $routeParams.airportLocation);
 		hacks.query(function(data){
 			data = pad(data);
 			$scope.hackathons = data;
+			$scope.loading = false;	
 		});
 	}
 ]);
