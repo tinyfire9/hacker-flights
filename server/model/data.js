@@ -1,13 +1,5 @@
 var data = [
 		{	
-			"hackathonName" : "deltaHacks",
-			"dates" : [[2, 14, 2015], [2, 15, 2015]],
-			"location" : {
-				"city" : "Hamilton",
-				"state" : "ON"
-			}
-		},
-		{	
 			"hackathonName" : "Hackpoly",
 			"dates" : [[2, 20, 2015], [2, 21, 2015]],
 			"location" : {
