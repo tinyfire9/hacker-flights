@@ -17,39 +17,40 @@ HackathonsInfo.prototype.findInfo = function(origin, callback){
 	{
 		(function(hackathon)
 			{
-				Airport.findNearestAirport(hackathons[hackathon].location.city, hackathons[hackathon].location.state, function(error, nearestAirportInfo){
-					if(error)
-					{
-						throw Error(error);
-					}
-					HackathonLength = hackathons[hackathon].dates.length;
-					hackathonBeginningDate = hackathons[hackathon].dates[0];
-					hackathonEndingDate = hackathons[hackathon].dates[HackathonLength - 1];
-					flightInfo.cheapestPrice(origin, nearestAirportInfo.code, hackathonBeginningDate, hackathonEndingDate, function(error, price){
+				setTimeout(function(){
+					Airport.findNearestAirport(hackathons[hackathon].location.city, hackathons[hackathon].location.state, function(error, nearestAirportInfo){
 						if(error)
 						{
 							throw Error(error);
 						}
+						HackathonLength = hackathons[hackathon].dates.length;
+						hackathonBeginningDate = hackathons[hackathon].dates[0];
+						hackathonEndingDate = hackathons[hackathon].dates[HackathonLength - 1];
+						flightInfo.cheapestPrice(origin, nearestAirportInfo.code, hackathonBeginningDate, hackathonEndingDate, function(error, price){
+							if(error)
+							{
+								throw Error(error);
+							}
 
-						hackathonsInfo.push({
-							"hackathonName" : hackathons[hackathon].hackathonName,
-							"dates" : hackathons[hackathon].dates,
-							"location" : hackathons[hackathon].location,
-							"originalLocationCode" : origin,
-							"nearestAirport" : nearestAirportInfo.name,
-							"airportLocation" : nearestAirportInfo.city + ", " + nearestAirportInfo.country,
-							"airportCode" :  nearestAirportInfo.code,
-							"startingPrice" : price
+							hackathonsInfo.push({
+								"hackathonName" : hackathons[hackathon].hackathonName,
+								"dates" : hackathons[hackathon].dates,
+								"location" : hackathons[hackathon].location,
+								"originalLocationCode" : origin,
+								"nearestAirport" : nearestAirportInfo.name,
+								"airportLocation" : nearestAirportInfo.city + ", " + nearestAirportInfo.country,
+								"airportCode" :  nearestAirportInfo.code,
+								"startingPrice" : price
+							});
+
+							if(hackathon == hackathons.length - 1)
+							{
+								callback(null, hackathonsInfo);
+								hackathonsInfo = [];
+							}
 						});
-
-						if(hackathon == hackathons.length - 1)
-						{
-							callback(null, hackathonsInfo);
-							hackathonsInfo = [];
-						}
 					});
-				});
-				
+				}, 10000);	
 			})(hackathon)
 	}
 }
