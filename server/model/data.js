@@ -1,37 +1,5 @@
 var data = [
 		{	
-			"hackathonName" : "HackDFW",
-			"dates" : [[2, 28, 2015], [3, 1, 2015]],
-			"location" : {
-				"city" : "Dallas",
-				"state" : "TX"
-			}
-		},
-		{	
-			"hackathonName" : "HackTCNJ",
-			"dates" : [[2, 28, 2015], [3, 1, 2015]],
-			"location" : {
-				"city" : "Ewing Township",
-				"state" : "NJ"
-			}
-		},
-		{	
-			"hackathonName" : "Hack.UVA",
-			"dates" : [[2, 28, 2015], [3, 1, 2015]],
-			"location" : {
-				"city" : "Charlottesville",
-				"state" : "VA"
-			}
-		},
-		{	
-			"hackathonName" : "Hack Arizona",
-			"dates" : [[3, 6, 2015], [3, 7, 2015], [3, 8, 2015]],
-			"location" : {
-				"city" : "Tucson",
-				"state" : "AZ"
-			}
-		},
-		{	
 			"hackathonName" : "HackBU",
 			"dates" : [[3, 20, 2015], [3, 21, 2015], [3, 22, 2015]],
 			"location" : {
