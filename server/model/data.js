@@ -1,29 +1,5 @@
 var data = [
 		{	
-			"hackathonName" : "HackBU",
-			"dates" : [[3, 20, 2015], [3, 21, 2015], [3, 22, 2015]],
-			"location" : {
-				"city" : "Binghamton",
-				"state" : "NY"
-			}
-		},
-		{	
-			"hackathonName" : "HackFSU",
-			"dates" : [[3, 20, 2015], [3, 21, 2015], [3, 22, 2015]],
-			"location" : {
-				"city" : "Tallahassee",
-				"state" : "FL"
-			}
-		},
-		{	
-			"hackathonName" : "PearlHacks",
-			"dates" : [[3, 21, 2015], [3, 22, 2015]],
-			"location" : {
-				"city" : "Chapel Hill",
-				"state" : "NC"
-			}
-		},
-		{	
 			"hackathonName" : "HackWestern",
 			"dates" : [[3, 27, 2015], [3, 28, 2015], [3, 29, 2015]],
 			"location" : {
