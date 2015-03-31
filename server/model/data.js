@@ -1,26 +1,10 @@
 var data = [
 		{	
-			"hackathonName" : "HackWestern",
-			"dates" : [[3, 27, 2015], [3, 28, 2015], [3, 29, 2015]],
+			"hackathonName" : "CodeRED",
+			"dates" : [[4, 3, 2015], [4, 4, 2015]],
 			"location" : {
-				"city" : "London",
-				"state" : "ON"
-			}
-		},
-		{	
-			"hackathonName" : "SteelHacks",
-			"dates" : [[3, 27, 2015], [3, 28, 2015], [3, 29, 2015]],
-			"location" : {
-				"city" : "Pittsburgh",
-				"state" : "PA"
-			}
-		},
-		{	
-			"hackathonName" : "HackPSU",
-			"dates" : [[3, 28, 2015], [3, 29, 2015]],
-			"location" : {
-				"city" : "State College",
-				"state" : "PA"
+				"city" : "Houston",
+				"state" : "TX"
 			}
 		},
 		{	
@@ -37,6 +21,30 @@ var data = [
 			"location" : {
 				"city" : "College Park",
 				"state" : "MD"
+			}
+		},
+		{	
+			"hackathonName" : "HackCU",
+			"dates" : [[4, 10, 2015], [4, 11, 2015], [4, 12, 2015]],
+			"location" : {
+				"city" : "Boulder",
+				"state" : "CO"
+			}
+		},
+		{	
+			"hackathonName" : "HackISU",
+			"dates" : [[4, 10, 2015], [4, 11, 2015], [4, 12, 2015]],
+			"location" : {
+				"city" : "Ames",
+				"state" : "IA"
+			}
+		},
+		{	
+			"hackathonName" : "HackPrinceton",
+			"dates" : [[4, 11, 2015], [4, 12, 2015]],
+			"location" : {
+				"city" : "Princeton",
+				"state" : "NJ"
 			}
 		},
 		{	
@@ -80,11 +88,27 @@ var data = [
 			}
 		},
 		{	
+			"hackathonName" : "CarlHacks",
+			"dates" : [[4, 24, 2015], [4, 25, 2015], [4, 26, 2015]],
+			"location" : {
+				"city" : "Northfield",
+				"state" : "MN"
+			}
+		},
+		{	
 			"hackathonName" : "RedbirdHacks",
 			"dates" : [[4, 24, 2015], [4, 25, 2015], [4, 26, 2015]],
 			"location" : {
 				"city" : "Normal",
 				"state" : "IL"
+			}
+		},
+		{	
+			"hackathonName" : "Project 34",
+			"dates" : [[5, 2, 2015], [5, 3 2015]],
+			"location" : {
+				"city" : "St. Petersburg",
+				"state" : "FL"
 			}
 		}
 	]
