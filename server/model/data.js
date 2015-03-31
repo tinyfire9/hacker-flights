@@ -105,7 +105,7 @@ var data = [
 		},
 		{	
 			"hackathonName" : "Project 34",
-			"dates" : [[5, 2, 2015], [5, 3 2015]],
+			"dates" : [[5, 2, 2015], [5, 3, 2015]],
 			"location" : {
 				"city" : "St. Petersburg",
 				"state" : "FL"
