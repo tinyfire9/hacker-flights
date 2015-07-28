@@ -62,7 +62,6 @@ request.post({
 
 			}, function(error, res, data){
 				data = JSON.parse(data);
-				console.log(data);
 				try
 				{
 					callback(null, data.trips.tripOption[0].saleTotal);
