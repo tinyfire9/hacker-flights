@@ -62,14 +62,15 @@ request.post({
 
 			}, function(error, res, data){
 				data = JSON.parse(data);
-				//console.log(data);
-				if(!data.trips.tripOption)
-				{
-					callback(null, "N/A");
-				}
-				else
+				console.log(data);
+				try
 				{
 					callback(null, data.trips.tripOption[0].saleTotal);
+				}
+				catch(error)
+				{
+					console.log(error);
+					callback(null, "N/A");
 				}
 			});
 }
