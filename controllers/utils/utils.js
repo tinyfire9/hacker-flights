@@ -5,7 +5,6 @@ var request = require('request'),
 var Utils = function(){}
 
 Utils.prototype.jsonpToJson = function(string){
-	console.log("in func", string);
 	//general format of the parameter : "callback({"processingDurationMillis":10,"authorisedAPI":true,"success":true,"airline":null,"errorMessage":null,"airports":[{"code":"ONT","name":"Ontario Intl","city":"Ontario","country":"United States","lat":34.056,"lng":-117.601194,"terminal":null,"gate":null,"timezone":"America/Los_Angeles"},null]})"
 	//removes "callback(" at the beginning of the string and ")" at the end of the string
 	//then parses the string to JSON format
