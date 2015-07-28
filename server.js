@@ -35,5 +35,5 @@ setInterval(function(){
 }, 1500)
 
 app.listen(process.env.PORT || 3000, function(){
-	console.log("Server running ...")
+	console.log("Server running on + " + process.env.PORT + " or 3000 ...")
 });
