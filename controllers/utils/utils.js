@@ -20,9 +20,17 @@ Utils.prototype.getLongtudeAndLatitude = function(city, state, callback){
 		"url" : "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + ",+" + state + "&key=" + 'AIzaSyDQLzuPYH99gZqv5vbVgb0FwqaHw1kBraI',
 	}, function(error, res, data){
 		data = JSON.parse(data);
-		location = {latitude : data.results[0].geometry.location.lat, 
-					longtude : data.results[0].geometry.location.lng
-					}
+		try
+		{
+			location = {
+				latitude : data.results[0].geometry.location.lat, 
+				longtude : data.results[0].geometry.location.lng
+			}
+		}
+		catch(error)
+		{
+			console.log("ERROR on util.getLongtudeAndLatitude() : ", error);
+		}
 		callback(null, location);
 	});
 }
