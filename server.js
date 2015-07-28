@@ -32,8 +32,8 @@ app.get('*', function(req, res){
 
 setInterval(function(){
 	hackerFlights.tryNotifyingAPIUsage();
-}, 1500)
+}, 60000 * 60 * 24)
 
 app.listen(process.env.PORT || 3000, function(){
-	console.log("Server running on + " + process.env.PORT + " or 3000 ...")
+	console.log("Server running ...")
 });
