@@ -16,14 +16,6 @@ var data = [
 			}
 		},
 		{	
-			"hackathonName" : "MHacks",
-			"dates" : [[9, 11, 2015], [9, 12, 2015], [9, 13, 2015]],
-			"location" : {
-				"city" : "Ann Arbor",
-				"state" : "MI"
-			}
-		},
-		{	
 			"hackathonName" : "Bigred//Hacks",
 			"dates" : [[9, 18, 2015], [9, 19, 2015], [9, 20, 2015]],
 			"location" : {
@@ -37,23 +29,6 @@ var data = [
 			"location" : {
 				"city" : "St. Louis",
 				"state" : "MO"
-			}
-		},
-
-		{	
-			"hackathonName" : "HackTX",
-			"dates" : [[9, 26, 2015], [9, 27, 2015]],
-			"location" : {
-				"city" : "Austin",
-				"state" : "TX"
-			}
-		},
-		{	
-			"hackathonName" : "Huskie Hack",
-			"dates" : [[9, 26, 2015], [9, 27, 2015]],
-			"location" : {
-				"city" : "DeKalb",
-				"state" : "IL"
 			}
 		},
 		{	
@@ -128,12 +103,36 @@ var data = [
 				"state" : "UT"
 			}
 		},
+		{	//checking locations
+			"hackathonName" : "MHacks",
+			"dates" : [[9, 11, 2015], [9, 12, 2015], [9, 13, 2015]],
+			"location" : {
+				"city" : "Ann Arbor",
+				"state" : "MI"
+			}
+		},
 		{	
 			"hackathonName" : "HackDuke",
 			"dates" : [[11, 7, 2015], [11, 8, 2015]],
 			"location" : {
 				"city" : "Durham",
 				"state" : "NC"
+			}
+		},
+		{	
+			"hackathonName" : "HackTX",
+			"dates" : [[9, 26, 2015], [9, 27, 2015]],
+			"location" : {
+				"city" : "Austin",
+				"state" : "TX"
+			}
+		},
+		{	
+			"hackathonName" : "Huskie Hack",
+			"dates" : [[9, 26, 2015], [9, 27, 2015]],
+			"location" : {
+				"city" : "DeKalb",
+				"state" : "IL"
 			}
 		},
 		{	
@@ -144,6 +143,7 @@ var data = [
 				"state" : "NJ"
 			}
 		},
+
 		{	
 			"hackathonName" : "HackHarvard",
 			"dates" : [[11, 13, 2015], [11, 14, 2015], [11, 15, 2015]],
@@ -153,27 +153,11 @@ var data = [
 			}
 		},
 		{	
-			"hackathonName" : "CodeRED",
-			"dates" : [[11, 21, 2015], [11, 22, 2015]],
-			"location" : {
-				"city" : "Houston",
-				"state" : "TX"
-			}
-		},
-		{	
 			"hackathonName" : "WildHacks",
 			"dates" : [[11, 21, 2015], [11, 22, 2015]],
 			"location" : {
 				"city" : "Evanston",
 				"state" : "IL"
-			}
-		},
-		{	
-			"hackathonName" : "HackWestern",
-			"dates" : [[11, 27, 2015], [11, 28, 2015], [11, 29, 2015]],
-			"location" : {
-				"city" : "London",
-				"state" : "ON"
 			}
 		}
 	]
