@@ -1,4 +1,4 @@
 module.exports = {
-	email : 'hackerFlights@gmail.com',
-	password : 'hackerflights12345'
+	email : process.env.email,
+	password : process.env.password
 };
