@@ -6,58 +6,53 @@ var flightPrices = [];
 
 var HackerFlights = function(){}
 
-HackerFlights.prototype.findFlights = function(origin, callback){
-	var HackathonLength;
-	var hackathonBeginningDate;
-	var hackathonEndingDate;
-	var queries;
+HackerFlights.prototype.findFlights = function(origin, socket){
+	var HackathonLength, hackathonBeginningDate, hackathonEndingDate, queries, price;
 
-	for(var hackathon = 0; hackathon < hackathons.length; hackathon++)
-	{
-		(function(hackathon)
+	hackathons.forEach(function(hackathon, index){
+		PublicAPI.findNearestAirport(hackathon.location.city, hackathon.location.state, function(error, nearestAirportInfo){
+			if(error)
 			{
-				setTimeout(function(){
-					PublicAPI.findNearestAirport(hackathons[hackathon].location.city, hackathons[hackathon].location.state, function(error, nearestAirportInfo){
-						if(error)
-						{
-							throw Error(error);
-						}
-						HackathonLength = hackathons[hackathon].dates.length;
-						hackathonBeginningDate = hackathons[hackathon].dates[0];
-						hackathonEndingDate = hackathons[hackathon].dates[HackathonLength - 1];
-						PublicAPI.getCheapestPrice(origin, nearestAirportInfo.code, hackathonBeginningDate, hackathonEndingDate, function(error, price){
-							if(error)
-							{
-								throw Error(error);
-							}
-
-							flightPrices.push({
-								hackathonName : hackathons[hackathon].hackathonName,
-								dates : hackathons[hackathon].dates,
-								location : hackathons[hackathon].location,
-								originalLocationCode : origin,
-								nearestAirport : nearestAirportInfo.name,
-								airportLocation : nearestAirportInfo.city + ", " + nearestAirportInfo.country,
-								airportCode :  nearestAirportInfo.code,
-								startingPrice : price
-							});
-
-							if(hackathon == hackathons.length - 1)
-							{
-								queries = new queriesModel({
-									date : new Date().toDateString(),
-									data : flightPrices
-								});
-								queries.save(function(){
-									callback(null, flightPrices);
-									flightPrices = [];
-								})
-							}
-						});
+				throw Error(error);
+			}
+			HackathonLength = hackathon.dates.length;
+			hackathonBeginningDate = hackathon.dates[0];
+			hackathonEndingDate = hackathon.dates[HackathonLength - 1];
+			PublicAPI.getCheapestPrice(origin, nearestAirportInfo.code, hackathonBeginningDate, hackathonEndingDate, function(error, price){
+				if(error)
+				{
+					throw Error(error);
+				}
+				data = {
+					hackathonName : hackathon.hackathonName,
+					dates : hackathon.dates,
+					location : hackathon.location,
+					originalLocationCode : origin,
+					nearestAirport : nearestAirportInfo.name,
+					airportLocation : nearestAirportInfo.city + ", " + nearestAirportInfo.country,
+					airportCode :  nearestAirportInfo.code,
+					startingPrice : price,
+					numberOfHackathons : hackathons.length
+				};
+				flightPrices.push(data);
+				socket.emit('hackerFlights.hackathon', { 
+					hackathon : data,
+					status : 200,
+					message : null 
+				});
+				if(hackathons.length == flightPrices.length - 1)
+				{
+					queries = new queriesModel({
+						date : new Date().toDateString(),
+						data : flightPrices
 					});
-				}, 10000);	
-			})(hackathon)
-	}
+					queries.save(function(){
+						flightPrices = [];
+					})
+				}
+			});
+		});
+	});
 }
 
 HackerFlights.prototype.tryNotifyingAPIUsage = function(){
