@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+var hackerFlights = require('../controllers/api/hackerFlights.js');
+
+hackerFlights.tryNotifyingAPIUsage();
