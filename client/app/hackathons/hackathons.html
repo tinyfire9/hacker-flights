@@ -1,0 +1,50 @@
+<head>
+	<style type="text/css">
+		.content{
+			text-align: center;
+			max-width: 90%;
+		}
+	</style>
+</head>
+<div class="content">	
+	<div id="inputError">
+		<input type="text" class="form-control" ng-model="filterHackathon" placeholder="Search by hackathon name">
+	</div>
+
+	<table class="table table-hover">
+		<thead >
+				<tr>
+					<td>Hackathon</td>
+					<td>Dates</td>
+					<td>location of the hackathon</td>
+					<td>Price</td>
+					<td>location of the nearest airport from<br> the location of the hackaton</td>
+					<td>Booking</td>
+				</tr>
+		</thead>
+		<tbody>
+			<tr ng-hide="showErrorMessage()" ng-repeat = "hackathon in hackathons | filter : filterHackathon">
+				<td>{{hackathon.hackathonName}}</td>
+				<td >{{hackathon.dates[0][0]}}/{{hackathon.dates[0][1]}}/{{hackathon.dates[0][2]}} - {{hackathon.dates[hackathon.dates.length -1 ][0]}}/{{hackathon.dates[hackathon.dates.length -1 ][1]}}/{{hackathon.dates[hackathon.dates.length -1 ][2]}}</td>
+				<td>{{hackathon.location.city}}, {{hackathon.location.state}}</td>
+				<td>{{hackathon.startingPrice}}</td>
+				<td>{{hackathon.airportLocation}}</td>
+				<td>
+					<a href="http://www.kayak.com/flights/{{hackathon.originalLocationCode}}-{{hackathon.airportCode}}/{{hackathon.dates[0][2]}}-{{hackathon.dates[0][0]}}-{{hackathon.dates[0][1]}}/{{hackathon.dates[hackathon.dates.length -1 ][2]}}-{{hackathon.dates[hackathon.dates.length -1 ][0]}}-{{hackathon.dates[hackathon.dates.length -1 ][1]}}">See more deals on Kayak</a>
+				</td>
+			</tr>
+			<tr ng-show="loadingInProgress()">
+				<td><center><i class="fa fa-spinner fa-pulse"></i></center></td>
+				<td><center><i class="fa fa-spinner fa-pulse"></i></center></td>
+				<td><center><i class="fa fa-spinner fa-pulse"></i></center></td>
+				<td><center><i class="fa fa-spinner fa-pulse"></i></center></td>
+				<td><center><i class="fa fa-spinner fa-pulse"></i></center></td>
+				<td><center><i class="fa fa-spinner fa-pulse"></i></center></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div id="inputError" ng-show="showErrorMessage()" ng-if="loadingStarted() == true">	
+		<div class="alert alert-danger" role="alert">Location of airport is not found, please try again!</div>
+	</div>
+</div>

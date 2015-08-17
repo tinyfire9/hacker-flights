@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="hackerFlights">
+	<head>
+	<title>Hacker Flights</title>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/custom.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-animate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+	<script src="/app/home/home.js"></script>
+	<script src="/app/hackathons/hackathons.js"></script>
+	<script src="/app.js"></script>
+	<base href="/"></base>
+	</head>
+	<body>
+		<center>
+			<h1 id="title">hackerFlights</h1>
+			<h5 id="subtitle">Cheapest available tickets for <a href="https://mlh.io">MLH</a> events</h5>
+			<div ui-view class="content"></div>
+		</center>
+	</body>
+</html>

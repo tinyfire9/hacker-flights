@@ -1,0 +1,22 @@
+<head>
+	<style type="text/css">
+		.content{
+			text-align: center;
+			max-width: 90%;
+			margin: 15%;
+		}
+		input{
+			text-align: center;
+		}
+	</style>
+</head>
+<div class="content">
+	<label>Departure airport location</label>
+	<br>
+  <div class="input-group">
+    	<input type="text" class="form-control" ng-model="airportLocation" placeholder="Bemidji" required="required">
+    	<span class="input-group-btn">
+      <button class="btn btn-default" ng-click="listPrices(airportLocation)"><i class="fa fa-search"></i></button>
+    </span>
+  </div>
+</div>
