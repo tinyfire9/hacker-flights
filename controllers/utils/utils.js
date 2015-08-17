@@ -17,7 +17,7 @@ Utils.prototype.getLongtudeAndLatitude = function(city, state, callback){
 	var location;
 	request.get({
 		//Google Geocoding API
-		"url" : "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + ",+" + state + "&key=" + 'AIzaSyDQLzuPYH99gZqv5vbVgb0FwqaHw1kBraI',
+		"url" : "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + ",+" + state + "&key=" + process.env.googleAPIKey,
 	}, function(error, res, data){
 		data = JSON.parse(data);
 		try
@@ -38,7 +38,7 @@ Utils.prototype.getLongtudeAndLatitude = function(city, state, callback){
 Utils.prototype.locationExists = function(location, callback){
 	var info;
 	request.get({
-			"url" : "https://airport.api.aero/airport/match/" + location + "?user_key=" + '7a7ca24e323cecc6b30926c4eceddd43',
+			"url" : "https://airport.api.aero/airport/match/" + location + "?user_key=" + process.env.sitaKey,
 			"headers" : {"content-type" : "application/json"}
 		},function(error, data){
 			if(error)

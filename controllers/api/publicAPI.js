@@ -11,7 +11,7 @@ PublicAPI.prototype.findNearestAirport = function(city, state, callback){
 			throw Error(error);
 		}
 		request.get({
-			"url" : "https://airport.api.aero/airport/nearest/" + location.latitude + "/" + location.longtude + "?user_key=" + '7a7ca24e323cecc6b30926c4eceddd43',
+			"url" : "https://airport.api.aero/airport/nearest/" + location.latitude + "/" + location.longtude + "?user_key=" + process.env.sitaKey,
 			"headers" : {"content-type" : "application/json"}
 		},function(error, res, data){
 			data = utils.jsonpToJson(data);
@@ -54,7 +54,7 @@ var requestBody = JSON.stringify({
 
 request.post({ 
 			//Google QPX-Express API
-			"url": "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + 'AIzaSyDQLzuPYH99gZqv5vbVgb0FwqaHw1kBraI',
+			"url": "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + process.env.googleAPIKey,
 				"headers": {
 					    'Content-Type': 'application/json'
 					},
