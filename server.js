@@ -3,15 +3,15 @@ var bodyParser = require('body-parser');
 var serverStatic = require('serve-static');
 var methodOverride = require('method-override');
 var errorHandler = require('errorhandler');
-var routes = require('./controllers/routes.js');
+var events = require('./controllers/events.js');
 var hackerFlights = require('./controllers/api/hackerFlights.js');
-var fs = require('fs');
-
-app.use(serverStatic(__dirname + '/client'));
+var path = require('path');
+var socket = require('socket.io');
+var io;
+app.use(serverStatic(path.join(__dirname, '/client')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(methodOverride());
-
 
 switch(app.get('env'))
 {
@@ -23,17 +23,17 @@ switch(app.get('env'))
 		break;
 }
 
-
-app.get('/hackathons/:airportLocation', routes.hackathonsListResponseHandler);
-
 app.get('*', function(req, res){
-	res.sendFile(__dirname + '/client/views/index.html');
+	res.sendFile(path.join(__dirname, 'client/index.html'));
 });
 
-setInterval(function(){
-	hackerFlights.tryNotifyingAPIUsage();
-}, 60000 * 60 * 24)
+io = socket.listen(app.listen(process.env.PORT || 3000, function(){
+	console.log("Server running ...");
+}));
 
-app.listen(process.env.PORT || 3000, function(){
-	console.log("Server running ...")
+
+io.on('connection', function(socket){
+	socket.on('hackerFlights.airportLocation', function(data){
+		events.hackathonsListResponseHandler(data.airportLocation, socket);
+	});
 });
