@@ -102,6 +102,63 @@ var data = [
 				"city" : "Logan",
 				"state" : "UT"
 			}
+		},//
+		{	
+			"hackathonName" : "Cal Hacks",
+			"dates" : [[10, 9, 2015], [10, 10, 2015], [10, 11, 2015]],
+			"location" : {
+				"city" : "	Berkeley",
+				"state" : "CA"
+			}
+		},
+		{	
+			"hackathonName" : "MHacks",
+			"dates" : [[9, 11, 2015], [9, 12, 2015], [9, 13, 2015]],
+			"location" : {
+				"city" : "Ann Arbor",
+				"state" : "MI"
+			}
+		},
+		{	
+			"hackathonName" : "HackDuke",
+			"dates" : [[11, 7, 2015], [11, 8, 2015]],
+			"location" : {
+				"city" : "Durham",
+				"state" : "NC"
+			}
+		},
+		{	
+			"hackathonName" : "HackTX",
+			"dates" : [[9, 26, 2015], [9, 27, 2015]],
+			"location" : {
+				"city" : "Austin",
+				"state" : "TX"
+			}
+		},
+		{	
+			"hackathonName" : "Huskie Hack",
+			"dates" : [[9, 26, 2015], [9, 27, 2015]],
+			"location" : {
+				"city" : "DeKalb",
+				"state" : "IL"
+			}
+		},
+		{	
+			"hackathonName" : "HackNJIT",
+			"dates" : [[11, 7, 2015], [11, 8, 2015]],
+			"location" : {
+				"city" : "Newark",
+				"state" : "NJ"
+			}
+		},
+
+		{	
+			"hackathonName" : "HackHarvard",
+			"dates" : [[11, 13, 2015], [11, 14, 2015], [11, 15, 2015]],
+			"location" : {
+				"city" : "Cambridge",
+				"state" : "MA"
+			}
 		}
 	]
 	
