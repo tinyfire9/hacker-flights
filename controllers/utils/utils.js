@@ -30,7 +30,7 @@ Utils.prototype.jsonpToJson = function(string){
 }
 
 Utils.prototype.getLongtudeAndLatitude = function(city, state, callback){
-	var location;
+	var location, data = '';
 	request.get({
 		//Google Geocoding API
 		"url" : "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + ",+" + state + "&key=" + process.env.googleAPIKey,
@@ -40,7 +40,7 @@ Utils.prototype.getLongtudeAndLatitude = function(city, state, callback){
 		{
 			location = {
 				latitude : data.results[0].geometry.location.lat, 
-				longtude : data.results[0].geometry.location.lng
+				longitude : data.results[0].geometry.location.lng
 			}
 		}
 		catch(error)
