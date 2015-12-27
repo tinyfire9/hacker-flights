@@ -1,5 +1,5 @@
 {
-  "name": "hackerFlights",
+  "name": "trackMe",
   "version": "1.0.0",
   "dependencies": {
     "body-parser": "^1.11.0",
@@ -7,6 +7,7 @@
     "express": "^4.11.2",
     "method-override": "^2.3.1",
     "mongoose": "^4.1.0",
+    "node-xlsx": "^0.6.0",
     "nodemailer": "^1.4.0",
     "request": "^2.53.0",
     "serve-static": "^1.8.1",
