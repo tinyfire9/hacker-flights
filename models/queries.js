@@ -1,16 +1,15 @@
 var mongoose = require('mongoose'),
-		schema = mongoose.Schema;
-
-mongoose.connect('mongodb://db_user:db_password@ds047732.mongolab.com:47732/heroku_46tnnbb3')
+schema = mongoose.Schema,
+collection = 'queries';
 
 var queries = new schema({
 	date : Date,
 	data : Array
 },
 {
-	collection : 'queries'
+	collection : collection
 });
 
-var queriesModel = mongoose.model('queries', queries);
+var queriesModel = mongoose.model(collection, queries);
 
 module.exports = queriesModel;
