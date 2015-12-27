@@ -1,7 +1,9 @@
 var utils = require('../utils/utils.js');
 var PublicAPI = require('./publicAPI.js');
 var hackathons = require('../../models/data.js');
-var queriesModel = require('../../models/queries.js');
+var models = require('../../models/models.js');
+var queriesModel = models.queries;
+var airportsModel = models.airports;
 var flightPrices = [];
 
 var HackerFlights = function(){}
@@ -77,5 +79,31 @@ HackerFlights.prototype.tryNotifyingAPIUsage = function(){
 		}
 	});
 }
+
+HackerFlights.prototype.updateLocations = function(path) {
+	var airports = utils.getAirports(__dirname + '/vale_eligible_airports.xls');
+	var airport;
+	airportsModel.remove({}, function(error){
+		if(error)
+		{
+			console.log("Error : ", Error(error));
+		}
+	});
+	airports.forEach(function(airport, i){
+		setTimeout(function(){		
+			utils.getLongtudeAndLatitude(airport.city, airport.state, function(error, location){
+				console.log(airport.city, airport.state,location)			
+				airport = new airportsModel({
+					code : airport.code,
+					city : airport.city,
+					state : airport.state,
+					latitude : location.latitude,
+					longitude : location.longitude
+				});
+				airport.save(function(){});
+			});
+		},500 * i);
+	});
+};
 
 module.exports = new HackerFlights();
