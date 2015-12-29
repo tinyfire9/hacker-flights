@@ -74,4 +74,24 @@ request.post({
 			});
 }
 
+PublicAPI.prototype.getHackathons = function(callback){
+	var time = 1000;
+	var allHackathons = [];
+	var urls = utils.getUrls();
+	var size = urls.length;
+	urls.forEach(function(hackathons, i){
+		utils.getHackathons(urls[i], function(hackathons){
+			if(hackathons)
+			{
+				hackathons.forEach(function(hackathon, j){
+					allHackathons.push(hackathon);
+				});
+			}
+		});
+	});
+	setTimeout(function() {
+		callback(allHackathons);
+	}, urls.length* 500);
+}
+
 module.exports = new PublicAPI();
