@@ -75,7 +75,7 @@ request.post({
 }
 
 PublicAPI.prototype.getHackathons = function(callback){
-	var time = 1000;
+	var time = 500;
 	var allHackathons = [];
 	var urls = utils.getUrls();
 	var size = urls.length;
@@ -91,7 +91,7 @@ PublicAPI.prototype.getHackathons = function(callback){
 	});
 	setTimeout(function() {
 		callback(allHackathons);
-	}, urls.length* 500);
+	}, urls.length* time);
 }
 
 module.exports = new PublicAPI();
