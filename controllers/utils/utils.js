@@ -5,6 +5,52 @@ var request = require('request'),
 
 var Utils = function(){}
 
+Utils.prototype.httpRequest = function(url, callback){
+	var data = '';
+	request.get({
+		"url" : url,
+		"headers" : {"content-type" : "application/json"}
+	}, function(error, res, data){
+		try{
+			data = JSON.parse(data);
+			callback(data[Object.keys(data)]);
+		}
+		catch(error)
+		{]
+			callback(null);
+
+		}
+	});
+}
+
+Utils.prototype.getUrls = function(){
+	var baseUrl = 'http://www.hackalist.org';
+	var date = new Date();
+	var year = date.getFullYear();
+	var month = date.getMonth() + 1;
+	var urls = [];
+	var endPoint;
+	var key;
+	//for this and the coming year - try getting data each upcoming month
+	for (var i = year; i <= year+1; i++) {
+		if(i == year + 1){ j= 1; }
+		else { j = month; }
+
+		for (j; j <= 12; j++) {
+			if(j < 10)
+			{
+				endPoint = '/api/1.0/' + i + '/0' + j + '.json';
+			}
+			else
+			{
+				endPoint = '/api/1.0/' + i + '/' + j + '.json';
+			}
+			urls.push(baseUrl + endPoint);
+		};
+	};
+	return urls;
+}
+
 Utils.prototype.getAirports = function(path){
 	var data = xlsx.parse(path);
 	var airports = [];
