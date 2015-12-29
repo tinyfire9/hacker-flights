@@ -80,7 +80,7 @@ PublicAPI.prototype.getHackathons = function(callback){
 	var urls = utils.getUrls();
 	var size = urls.length;
 	urls.forEach(function(hackathons, i){
-		utils.getHackathons(urls[i], function(hackathons){
+		utils.httpRequest(urls[i], function(hackathons){
 			if(hackathons)
 			{
 				hackathons.forEach(function(hackathon, j){
