@@ -4,6 +4,7 @@ collection = 'airports',
 model, airports;
 
 airports = new schema({
+	code : String,
 	city : String,
 	state : String,
 	latitude : Number,
