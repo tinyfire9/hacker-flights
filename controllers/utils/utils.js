@@ -16,7 +16,7 @@ Utils.prototype.httpRequest = function(url, callback){
 			callback(data[Object.keys(data)]);
 		}
 		catch(error)
-		{]
+		{
 			callback(null);
 
 		}
@@ -145,6 +145,11 @@ Utils.prototype.sendEmail = function(email, message){
         }
     });
 }
+
+Utils.prototype.formatDate = function(date, year){
+	var date = new Date(date + ', ' + year);
+	return date.getFullYear() + '-' + date.getMonth() + 1 + '-' + date.getDate();
+}	
 
 var utils = new Utils();
 module.exports = utils;

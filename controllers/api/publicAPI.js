@@ -1,30 +1,45 @@
 var utils = require('../utils/utils.js');
+var models = require('../../models/models.js');
 var request = require('request');
 
 var PublicAPI = function(){}
 
 PublicAPI.prototype.findNearestAirport = function(city, state, callback){
-	var NearestAirport;
+	var nearestDistance = 0;
+	var nearestAirport = {};
 	utils.getLongtudeAndLatitude(city, state, function(error, location){
-		if(error)
-		{
-			throw Error(error);
-		}
-		request.get({
-			"url" : "https://airport.api.aero/airport/nearest/" + location.latitude + "/" + location.longtude + "?user_key=" + process.env.sitaKey,
-			"headers" : {"content-type" : "application/json"}
-		},function(error, res, data){
-			data = utils.jsonpToJson(data);
-
-			NearestAirport = {
-				code : data.airports[0].code,
-				name : data.airports[0].name,
-				city : data.airports[0].city,
-				country : data.airports[0].country
+		models.airports.findOne({}, function(error, airports){
+			if(error)
+			{
+				console.log(Error(error));
 			}
-			callback(null, NearestAirport);
+			airports.forEach(function(airport, i){
+				var distance = Math.sqrt(
+					Math.pow(location.latitude - airport.latitude, 2) + 
+					Math.pow(location.longitude - airport.longitude, 2)
+					);
+				if( ditance < nearestDistance )
+				{
+					nearestDistance = distance;
+					nearestAirport = airport;
+				}
+
+				if(i == airports.length-1)
+				{
+					NearestAirport = {
+						code : nearestAirport.code,
+						name : nearestAirport.name,
+						city : nearestAirport.city
+					}
+					callback(null, NearestAirport);
+				}
+			});
 		});
 	});
+
+
+
+
 }
 
 PublicAPI.prototype.getCheapestPrice = function(origin, destination, departureDate, returningDate, callback){
