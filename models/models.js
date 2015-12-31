@@ -4,5 +4,6 @@ mongoose.connect(connection);
 
 module.exports = {
 	queries : require('./queries.js'),
-	airports : require('./airports.js')
+	airports : require('./airports.js'),
+	cities : require('./cities.js')
 };
