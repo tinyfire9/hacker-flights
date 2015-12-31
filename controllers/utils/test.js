@@ -10,3 +10,5 @@ var util = require('./utils.js');
 // })
 
 // console.log('HEeyyyy : ', util.getUrls());
+
+console.log("DATA :", util.locationExists())
