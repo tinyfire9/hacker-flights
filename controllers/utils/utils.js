@@ -97,30 +97,20 @@ Utils.prototype.getLongtudeAndLatitude = function(city, state, callback){
 	});
 }
 
-Utils.prototype.locationExists = function(location, callback){
-	var info;
-	request.get({
-			"url" : "https://airport.api.aero/airport/match/" + location + "?user_key=" + process.env.sitaKey,
-			"headers" : {"content-type" : "application/json"}
-		},function(error, data){
-			if(error)
-			{
-				throw Error(error);
-			}
-			data = utils.jsonpToJson(data.body.toString());
-			if(data.airports.length == 0)
-			{
-				info = null;
-			}
-			else
-			{
-				info = {
-					code : data.airports[0].code,
-					country : data.airports[0].country
-				}
-			}
-			callback(null, info);
-		});
+Utils.prototype.getLocations = function(){
+	var file = xlsx.parse(__dirname + '/cities.xlsx');
+	var locations = [];
+	file[0].data.splice(0,1);//remove header
+	file[0].data.forEach(function(row, i){
+		var location = {
+			city : row[2],
+			state : row[1],
+			latitude : row[3],
+			longitude : row[4]
+		};
+		locations.push(location);
+	});
+	return locations;
 }
 Utils.prototype.sendEmail = function(email, message){
     var transporter = nodemailer.createTransport({
