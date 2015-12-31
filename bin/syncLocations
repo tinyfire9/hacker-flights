@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+var util = require('../controllers/utils/utils.js');
+var models = require('../models/models.js');
+
+var locations = util.getLocations();
+models.cities.remove({}, function(){
+	locations.forEach(function(location, i){
+		if((i == 0) || (i == locations.length - 1))
+			console.log(location)
+		var cities = new models.cities({
+			city : location.city,
+			state : location. state,
+			latitude : location.latitude,
+			longitude : location.longitude
+		});
+		cities.save(function(){
+			console.log("Data synced on db :)");
+		});
+	});
+});
+
