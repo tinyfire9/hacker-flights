@@ -6,17 +6,18 @@ var models = require('../models/models.js');
 var locations = util.getLocations();
 models.cities.remove({}, function(){
 	locations.forEach(function(location, i){
-		if((i == 0) || (i == locations.length - 1))
-			console.log(location)
-		var cities = new models.cities({
-			city : location.city,
-			state : location. state,
-			latitude : location.latitude,
-			longitude : location.longitude
-		});
-		cities.save(function(){
-			console.log("Data synced on db :)");
-		});
+		if(typeof(location.city) == 'string' && typeof(location.state) == 'string')
+		{
+			var cities = new models.cities({
+				city : location.city.toLowerCase(),
+				state : location.state.toLowerCase(),
+				latitude : location.latitude,
+				longitude : location.longitude
+			});
+			cities.save(function(){
+				console.log("Data synced on db :)");
+			});
+		}
 	});
 });
 
