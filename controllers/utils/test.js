@@ -11,4 +11,9 @@ var util = require('./utils.js');
 
 // console.log('HEeyyyy : ', util.getUrls());
 
-console.log("DATA :", util.locationExists())
+// console.log("DATA :", util.locationExists())
+
+var city = 'bemidji', state = 'mn';
+util.locationExists(city, state, function(status){
+	console.log('locationExists : ', city, ', ', state, ' => ', status);
+})
