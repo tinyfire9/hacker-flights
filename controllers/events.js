@@ -5,8 +5,17 @@ var HackerFlights = require('./api/hackerFlights.js'),
 		
 exports.hackathonsListResponseHandler = function(airportLocation, socket){
 	console.log('Departing from : ' + airportLocation + '~ working on request . . .');
-	utils.locationExists(airportLocation, function(error, data){
-		if(!data)
+	var location = airportLocation.split(', ');
+	var city = location[0].toLowerCase();
+	if(location.length != 2)
+	{
+		var state = location[0].toLowerCase();
+	}
+	else{
+		var state = location[1].toLowerCase();
+	}
+	utils.locationExists(city, state, function(status){
+		if(!status)
 		{
 			socket.emit('hackerFlights.hackathon', {
 				hackathon : null,
