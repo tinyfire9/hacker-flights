@@ -33,7 +33,6 @@ PublicAPI.prototype.findNearestAirport = function(city, state, callback){
 				if(i == airports.length-1)
 				{
 					nearestAirport = {
-						// name : nearestAirport.name,
 						code : nearestAirport.code,
 						city : nearestAirport.city,
 						state : nearestAirport.state
