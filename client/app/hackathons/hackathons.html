@@ -16,21 +16,21 @@
 				<tr>
 					<td>Hackathon</td>
 					<td>Dates</td>
-					<td>location of the hackathon</td>
+					<td>location</td>
 					<td>Price</td>
-					<td>location of the nearest airport from<br> the location of the hackaton</td>
+					<td>Nearest airport to the hackathon</td>
 					<td>Booking</td>
 				</tr>
 		</thead>
 		<tbody>
 			<tr ng-hide="showErrorMessage()" ng-repeat = "hackathon in hackathons | filter : filterHackathon">
 				<td>{{hackathon.hackathonName}}</td>
-				<td >{{hackathon.dates[0][0]}}/{{hackathon.dates[0][1]}}/{{hackathon.dates[0][2]}} - {{hackathon.dates[hackathon.dates.length -1 ][0]}}/{{hackathon.dates[hackathon.dates.length -1 ][1]}}/{{hackathon.dates[hackathon.dates.length -1 ][2]}}</td>
-				<td>{{hackathon.location.city}}, {{hackathon.location.state}}</td>
+				<td >{{hackathon.dates[0]}} to {{hackathon.dates[1]}}</td>
+				<td>{{hackathon.location}}</td>
 				<td>{{hackathon.startingPrice}}</td>
 				<td>{{hackathon.airportLocation}}</td>
 				<td>
-					<a href="http://www.kayak.com/flights/{{hackathon.originalLocationCode}}-{{hackathon.airportCode}}/{{hackathon.dates[0][2]}}-{{hackathon.dates[0][0]}}-{{hackathon.dates[0][1]}}/{{hackathon.dates[hackathon.dates.length -1 ][2]}}-{{hackathon.dates[hackathon.dates.length -1 ][0]}}-{{hackathon.dates[hackathon.dates.length -1 ][1]}}">See more deals on Kayak</a>
+					<a href="http://www.kayak.com/flights/{{hackathon.originalLocationCode}}-{{hackathon.airportCode}}/{{hackathon.dates[0]}}/{{hackathon.dates[1]}}">See more deals on Kayak</a>
 				</td>
 			</tr>
 			<tr ng-show="loadingInProgress()">
