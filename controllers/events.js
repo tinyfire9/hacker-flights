@@ -4,7 +4,6 @@ var HackerFlights = require('./api/hackerFlights.js'),
 		airportLocation;
 		
 exports.hackathonsListResponseHandler = function(airportLocation, socket){
-	console.log('Departing from : ' + airportLocation + '~ working on request . . .');
 	var location = airportLocation.split(', ');
 	var city = location[0].toLowerCase();
 	if(location.length != 2)
@@ -14,6 +13,7 @@ exports.hackathonsListResponseHandler = function(airportLocation, socket){
 	else{
 		var state = location[1].toLowerCase();
 	}
+	console.log('Departing from : ' + city + ', ' + state + ' ~ working on request . . .');
 	utils.locationExists(city, state, function(status){
 		if(!status)
 		{
@@ -25,7 +25,7 @@ exports.hackathonsListResponseHandler = function(airportLocation, socket){
 		}
 		else
 		{
-			HackerFlights.findFlights(data.code, socket);		
+			HackerFlights.findFlights(city, state, socket);		
 		}
 	});
 }
