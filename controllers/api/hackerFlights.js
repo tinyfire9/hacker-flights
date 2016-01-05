@@ -86,30 +86,4 @@ HackerFlights.prototype.tryNotifyingAPIUsage = function(){
 	});
 }
 
-HackerFlights.prototype.updateLocations = function() {
-	var airports = utils.getAirports(__dirname + '/vale_eligible_airports.xls');
-	var airport;
-	airportsModel.remove({}, function(error){
-		if(error)
-		{
-			console.log("Error : ", Error(error));
-		}
-	});
-	airports.forEach(function(airport, i){
-		setTimeout(function(){		
-			utils.getLongtudeAndLatitude(airport.city, airport.state, function(error, location){
-				console.log(airport.city, airport.state,location)			
-				airport = new airportsModel({
-					code : airport.code,
-					city : airport.city,
-					state : airport.state,
-					latitude : location.latitude,
-					longitude : location.longitude
-				});
-				airport.save(function(){});
-			});
-		},500 * i);
-	});
-};
-
 module.exports = new HackerFlights();
