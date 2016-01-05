@@ -1,6 +1,5 @@
 var utils = require('../utils/utils.js');
 var PublicAPI = require('./publicAPI.js');
-// var hackathons = require('../../models/data.js');
 var models = require('../../models/models.js');
 var queriesModel = models.queries;
 var airportsModel = models.airports;
@@ -26,7 +25,7 @@ HackerFlights.prototype.findFlights = function(city, state, socket){
 					}
 					startDate = utils.formatDate(hackathon.startDate, hackathon.year);
 					endDate = utils.formatDate(hackathon.endDate, hackathon.year);
-					PublicAPI.getCheapestPrice(nearestAirportToOrigin.code, nearestAirportToHackathon.code, hackathonBeginningDate, hackathonEndingDate, function(error, price){
+					PublicAPI.getCheapestPrice(nearestAirportToOrigin.code, nearestAirportToHackathon.code, startDate, endDate, function(error, price){
 						if(error)
 						{
 							throw Error(error);
@@ -34,7 +33,7 @@ HackerFlights.prototype.findFlights = function(city, state, socket){
 						data = {
 							hackathonName : hackathon.title,
 							dates : [startDate, endDate],
-							location : hackathon.location,
+							location : location.city + ', ' + location.state,
 							originalLocationCode : nearestAirportToOrigin.code,
 							airportLocation : nearestAirportToHackathon.city + ", " + nearestAirportToHackathon.state,
 							airportCode :  nearestAirportToHackathon.code,
