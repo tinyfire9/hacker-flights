@@ -1,3 +1,4 @@
+'use strict'
 var utils = require('../utils/utils.js');
 var models = require('../../models/models.js');
 var request = require('request');
@@ -5,10 +6,15 @@ var request = require('request');
 var PublicAPI = function(){}
 
 PublicAPI.prototype.findNearestAirport = function(city, state, callback){
-	var nearestDistance = 0;
-	var nearestAirport = {};
+	var nearestDistance = Infinity;
+	var nearestAirport = {
+		name : null,
+		code : null,
+		city : null,
+		state : null
+	};
 	utils.getLongtudeAndLatitude(city, state, function(error, location){
-		models.airports.findOne({}, function(error, airports){
+		models.airports.find({}, function(error, airports){
 			if(error)
 			{
 				console.log(Error(error));
@@ -18,7 +24,7 @@ PublicAPI.prototype.findNearestAirport = function(city, state, callback){
 					Math.pow(location.latitude - airport.latitude, 2) + 
 					Math.pow(location.longitude - airport.longitude, 2)
 					);
-				if( ditance < nearestDistance )
+				if( distance < nearestDistance )
 				{
 					nearestDistance = distance;
 					nearestAirport = airport;
@@ -26,67 +32,53 @@ PublicAPI.prototype.findNearestAirport = function(city, state, callback){
 
 				if(i == airports.length-1)
 				{
-					NearestAirport = {
+					nearestAirport = {
+						// name : nearestAirport.name,
 						code : nearestAirport.code,
-						name : nearestAirport.name,
-						city : nearestAirport.city
+						city : nearestAirport.city,
+						state : nearestAirport.state
 					}
-					callback(null, NearestAirport);
+					callback(null, nearestAirport);
 				}
 			});
 		});
 	});
-
-
-
-
 }
 
 PublicAPI.prototype.getCheapestPrice = function(origin, destination, departureDate, returningDate, callback){
-
 var requestBody = JSON.stringify({
-						  "request": 
-						  {
-						    "passengers": 
-						    {
-						      "adultCount": 1
-						    },
-						    "slice": 
-						    [
-						      {
-						        "origin": origin,
-						        "destination": destination,
-						        "date": departureDate[2] + "-" + departureDate[0] + "-" +departureDate[1] // YYYY-MM-DD
-						      },
-						      {
-						        "origin": destination,
-						        "destination": origin,
-						        "date": returningDate[2] + "-" + returningDate[0] + "-" +returningDate[1] // YYYY-MM-DD
-						      }
-						    ]
-						  }
-						});
-
-request.post({ 
-			//Google QPX-Express API
-			"url": "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + process.env.googleAPIKey,
-				"headers": {
-					    'Content-Type': 'application/json'
-					},
-				"body" : requestBody
-
-			}, function(error, res, data){
-				data = JSON.parse(data);
-				try
-				{
-					callback(null, data.trips.tripOption[0].saleTotal);
-				}
-				catch(error)
-				{
-					console.log(error);
-					callback(null, "N/A");
-				}
-			});
+	"request": {
+	    "passengers": { "adultCount": 1 },
+	    "slice": [{
+	        "origin": origin,
+	        "destination": destination,
+	        "date": departureDate // YYYY-MM-DD
+	      },
+	      {
+	        "origin": destination,
+	        "destination": origin,
+	        "date": returningDate // YYYY-MM-DD
+	      }
+	    ]
+	  }
+	});
+	request.post({ 
+		//Google QPX-Express API
+		"url": "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + process.env.googleAPIKey,
+			"headers": { 'Content-Type': 'application/json' },
+			"body" : requestBody
+		}, function(error, res, data){
+			data = JSON.parse(data);
+			try
+			{
+				callback(null, data.trips.tripOption[0].saleTotal);
+			}
+			catch(error)
+			{
+				console.log(error);
+				callback(null, "N/A");
+			}
+	});
 }
 
 PublicAPI.prototype.getHackathons = function(callback){
