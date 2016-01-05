@@ -1,7 +1,8 @@
 var request = require('request'),
 	nodemailer = require('nodemailer'),
 	config = require('../../config.js'),
-	xlsx = require('node-xlsx');
+	xlsx = require('node-xlsx'),
+	models = require('../../models/models.js');
 
 var Utils = function(){}
 
@@ -31,7 +32,7 @@ Utils.prototype.getUrls = function(){
 	var urls = [];
 	var endPoint;
 	var key;
-	//for this and the coming year - try getting data each upcoming month
+	//for this and the coming year - try getting data on each upcoming month
 	for (var i = year; i <= year+1; i++) {
 		if(i == year + 1){ j= 1; }
 		else { j = month; }
@@ -140,6 +141,28 @@ Utils.prototype.formatDate = function(date, year){
 	var date = new Date(date + ', ' + year);
 	return date.getFullYear() + '-' + date.getMonth() + 1 + '-' + date.getDate();
 }	
+
+Utils.prototype.locationExists = function(city, state, callback){
+	models.cities.findOne({city : city, state : state}, function(error, location){
+		if(!location)
+		{
+			callback(false);
+		}
+		else
+		{
+			callback(true);
+		}
+	});
+}
+
+Utils.prototype.parseLocation = function(location){
+	var location = location.split(', ');
+	return {
+		city : location[0],
+		state : location[1]
+	};
+}
+
 
 var utils = new Utils();
 module.exports = utils;
