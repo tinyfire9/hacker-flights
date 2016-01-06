@@ -38,7 +38,8 @@ HackerFlights.prototype.findFlights = function(city, state, socket){
 							airportLocation : nearestAirportToHackathon.city + ", " + nearestAirportToHackathon.state,
 							airportCode :  nearestAirportToHackathon.code,
 							startingPrice : price,
-							numberOfHackathons : hackathons.length
+							numberOfHackathons : hackathons.length,
+							url : hackathon.url
 						};
 						flightPrices.push(data);
 						socket.emit('hackerFlights.hackathon', { 
