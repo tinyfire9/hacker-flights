@@ -45,6 +45,7 @@ PublicAPI.prototype.findNearestAirport = function(city, state, callback){
 }
 
 PublicAPI.prototype.getCheapestPrice = function(origin, destination, departureDate, returningDate, callback){
+console.log('INFO :: ', origin, destination, departureDate, returningDate)
 var requestBody = JSON.stringify({
 	"request": {
 	    "passengers": { "adultCount": 1 },
@@ -67,6 +68,7 @@ var requestBody = JSON.stringify({
 			"headers": { 'Content-Type': 'application/json' },
 			"body" : requestBody
 		}, function(error, res, data){
+			console.log(data)
 			data = JSON.parse(data);
 			try
 			{
@@ -90,7 +92,11 @@ PublicAPI.prototype.getHackathons = function(callback){
 			if(hackathons)
 			{
 				hackathons.forEach(function(hackathon, j){
-					allHackathons.push(hackathon);
+					//check if the hackathon is in the US
+					if(hackathon.city.toLowerCase().search('united states') != -1)
+					{
+						allHackathons.push(hackathon);
+					}
 				});
 			}
 		});
