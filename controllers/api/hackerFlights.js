@@ -25,7 +25,8 @@ HackerFlights.prototype.findFlights = function(city, state, socket){
 					}
 					startDate = utils.formatDate(hackathon.startDate, hackathon.year);
 					endDate = utils.formatDate(hackathon.endDate, hackathon.year);
-					PublicAPI.getCheapestPrice(nearestAirportToOrigin.code, nearestAirportToHackathon.code, startDate, endDate, function(error, price){
+					PublicAPI.getCheapestPrice(nearestAirportToOrigin.code, nearestAirportToHackathon.code, startDate, endDate, function(error, priceData){
+						const { price, detailLink } = priceData;
 						if(error)
 						{
 							throw Error(error);
