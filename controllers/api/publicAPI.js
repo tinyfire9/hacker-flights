@@ -19,6 +19,7 @@ PublicAPI.prototype.findNearestAirport = function(city, state, callback){
 			{
 				console.log(Error(error));
 			}
+			console.log({ error });
 			airports.forEach(function(airport, i){
 				var distance = Math.sqrt(
 					Math.pow(location.latitude - airport.latitude, 2) + 
@@ -45,39 +46,29 @@ PublicAPI.prototype.findNearestAirport = function(city, state, callback){
 }
 
 PublicAPI.prototype.getCheapestPrice = function(origin, destination, departureDate, returningDate, callback){
-console.log('INFO :: ', origin, destination, departureDate, returningDate)
-var requestBody = JSON.stringify({
-	"request": {
-	    "passengers": { "adultCount": 1 },
-	    "slice": [{
-	        "origin": origin,
-	        "destination": destination,
-	        "date": departureDate // YYYY-MM-DD
-	      },
-	      {
-	        "origin": destination,
-	        "destination": origin,
-	        "date": returningDate // YYYY-MM-DD
-	      }
-	    ]
-	  }
-	});
-	request.post({ 
-		//Google QPX-Express API
-		"url": "https://www.googleapis.com/qpxExpress/v1/trips/search?key=" + process.env.googleAPIKey,
-			"headers": { 'Content-Type': 'application/json' },
-			"body" : requestBody
+	const url = utils.getSkypickerURL(origin, destination, departureDate, returningDate);
+
+	const getPriceOuput = (price = '', detailLink = '') => {
+		return { price, detailLink };
+	}
+
+	console.log('INFO :: ', origin, destination, departureDate, returningDate);
+
+	request.get({ 
+		url,
+		headers: { 'Content-Type': 'application/json' },
 		}, function(error, res, data){
-			console.log(data)
 			data = JSON.parse(data);
-			try
-			{
-				callback(null, data.trips.tripOption[0].saleTotal);
+			try {
+				const output = data.data.length > 0 ?
+					getPriceOuput(data.data[0].price, data.data[0].deep_link) :
+					getPriceOuput();
+				callback(null, output);
 			}
 			catch(error)
 			{
 				console.log(error);
-				callback(null, "N/A");
+				callback(null, getPriceOuput());
 			}
 	});
 }
