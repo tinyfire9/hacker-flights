@@ -24,6 +24,31 @@ Utils.prototype.httpRequest = function(url, callback){
 	});
 }
 
+Utils.prototype.getSkypickerURL = function(origin, destination, departureDate, returningDate) {
+	const baseURL = 'https://api.skypicker.com';
+	const route = '/flights';
+	let paramsString = '';
+	const paramsList = [
+		{key: 'curr', value: 'USD'},
+		{key: 'partner', value: 'picky'},
+		{key: 'date_from', value: departureDate},
+		{key: 'date_to', value: departureDate},
+		{key: 'return_from', value: returningDate},
+		{key: 'return_to', value: returningDate},
+		{key: 'fly_from', value: origin},
+		{key: 'fly_to', value: destination},
+	];
+
+	paramsList.forEach((param, i) => {
+		paramsString += `${param.key}=${param.value}`;
+		if((i != paramsList.length-1) && (paramsList.length != 0)) {
+			paramsString += '&';
+		}
+	});
+
+	return `${baseURL+route}?${paramsString}`;
+}
+
 Utils.prototype.getUrls = function(){
 	var baseUrl = 'http://www.hackalist.org';
 	var date = new Date();
@@ -139,7 +164,7 @@ Utils.prototype.sendEmail = function(email, message){
 
 Utils.prototype.formatDate = function(date, year){
 	var date = new Date(date + ', ' + year);
-	return date.getFullYear() + '-' + date.getMonth() + 1 + '-' + date.getDate();
+	return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 }	
 
 Utils.prototype.locationExists = function(city, state, callback){

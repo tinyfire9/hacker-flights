@@ -13,7 +13,7 @@ var api = require('./publicAPI.js')
 // })
 
 // MSN YNG 2016-11-5 2016-11-7
-api.getCheapestPrice('msn','tol','2016-11-26','2016-11-28', function(err, res) {
+api.getCheapestPrice('MSP','SFO','11/06/2019','20/06/2019', function(err, res) {
 	// body...
 
 	console.log(err, res)
