@@ -17,7 +17,7 @@
 					<td>Hackathon</td>
 					<td>Dates</td>
 					<td>location</td>
-					<td>Price</td>
+					<td>Price ( USD )</td>
 					<td>Nearest airport to the hackathon</td>
 					<td>Booking</td>
 				</tr>
@@ -30,7 +30,7 @@
 				<td>{{hackathon.startingPrice}}</td>
 				<td>{{hackathon.airportLocation}}</td>
 				<td>
-					<a href="http://www.kayak.com/flights/{{hackathon.originalLocationCode}}-{{hackathon.airportCode}}/{{hackathon.dates[0]}}/{{hackathon.dates[1]}}" target="_blank">See more deals on Kayak</a>
+					<a href="{{hackathon.flightDetailLink}}">Book on Kiwi</a>
 				</td>
 			</tr>
 			<tr ng-show="loadingInProgress()">
