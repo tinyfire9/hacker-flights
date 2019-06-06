@@ -3,67 +3,71 @@ var PublicAPI = require('./publicAPI.js');
 var models = require('../../models/models.js');
 var queriesModel = models.queries;
 var airportsModel = models.airports;
-var flightPrices = [];
 
 var HackerFlights = function(){}
 
-HackerFlights.prototype.findFlights = function(city, state, socket){
-	var startDate, endDate, queries, price;
+HackerFlights.prototype.listHackerFlights = function(city, state, socket){
 	PublicAPI.findNearestAirport(city, state, function(originError, nearestAirportToOrigin){
-		if(originError)
-		{
+		if(originError) {
 			throw Error(originError);
 		}
 
 		PublicAPI.getHackathons(function(hackathons){
 			hackathons.forEach(function(hackathon, index){
-				var location = utils.parseLocation(hackathon.city);
-				PublicAPI.findNearestAirport(location.city, location.state, function(hackathonError, nearestAirportToHackathon){
-					if(hackathonError)
-					{
-						throw Error(hackathonError);
-					}
-					startDate = utils.formatDate(hackathon.startDate, hackathon.year);
-					endDate = utils.formatDate(hackathon.endDate, hackathon.year);
-					PublicAPI.getCheapestPrice(nearestAirportToOrigin.code, nearestAirportToHackathon.code, startDate, endDate, function(error, priceData){
-						const { price, detailLink } = priceData;
-						if(error)
-						{
-							throw Error(error);
-						}
-						data = {
-							hackathonName : hackathon.title,
-							dates : [startDate, endDate],
-							location : location.city + ', ' + location.state,
-							originalLocationCode : nearestAirportToOrigin.code,
-							airportLocation : nearestAirportToHackathon.city + ", " + nearestAirportToHackathon.state,
-							airportCode :  nearestAirportToHackathon.code,
-							startingPrice : price,
-							numberOfHackathons : hackathons.length,
-							url : hackathon.url
-						};
-						flightPrices.push(data);
-						socket.emit('hackerFlights.hackathon', { 
-							hackathon : data,
-							status : 200,
-							message : null 
-						});
-						if(hackathons.length == flightPrices.length - 1)
-						{
-							queries = new queriesModel({
-								date : new Date().toDateString(),
-								data : flightPrices
-							});
-							queries.save(function(){
-								flightPrices = [];
-							})
-						}
+				const location = utils.parseLocation(hackathon.city);
+				const params = {
+					hackathons,
+					nearestAirportToOrigin,
+					hackathon,
+					location
+				}
+				HackerFlights.prototype.findHackerFlight(params, (err, flightData) => {
+					socket.emit('hackerFlights.hackathon', { 
+						hackathon : flightData,
+						status : 200,
+						message : null 
 					});
 				});
 			});
 		});
 	});
 }
+
+HackerFlights.prototype.findHackerFlight = (params, callback) => {
+	const { hackathons, hackathon, nearestAirportToOrigin, location } = params;
+	let startDate, endDate;
+	PublicAPI.findNearestAirport(location.city, location.state, function(hackathonError, nearestAirportToHackathon){
+		if(hackathonError) {
+			throw Error(hackathonError);
+		}
+		startDate = utils.formatDate(hackathon.startDate, hackathon.year);
+		endDate = utils.formatDate(hackathon.endDate, hackathon.year);
+
+		PublicAPI.getCheapestPrice(nearestAirportToOrigin.code, nearestAirportToHackathon.code, startDate, endDate, function(error, priceData){
+			const { price, detailLink } = priceData;
+			if(error) {
+				throw Error(error);
+			}
+
+			console.log({ location, startDate, endDate, nearestAirportToHackathon, priceData });
+
+			data = {
+				hackathonName : hackathon.title,
+				dates : [startDate, endDate],
+				location : location.city + ', ' + location.state,
+				originalLocationCode : nearestAirportToOrigin.code,
+				airportLocation : nearestAirportToHackathon.city + ", " + nearestAirportToHackathon.state,
+				airportCode :  nearestAirportToHackathon.code,
+				startingPrice : price,
+				flightDetailLink: detailLink,
+				numberOfHackathons : hackathons.length,
+				url : hackathon.url
+			};
+
+			callback(null, data);
+		});
+	});
+};
 
 HackerFlights.prototype.tryNotifyingAPIUsage = function(){
 	var APICalls = 0;
