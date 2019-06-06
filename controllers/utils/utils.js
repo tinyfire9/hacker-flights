@@ -101,25 +101,69 @@ Utils.prototype.jsonpToJson = function(string){
 	return(string);
 }
 
+Utils.prototype.getNearestAirportFromLocation = function(location, callback) {
+	let nearestDistance = Infinity;
+	let nearestAirport = {
+		name : null,
+		code : null,
+		city : null,
+		state : null
+	};
+
+	models.airports.find({}, function(error, airports){
+		if(error) {
+			console.log(Error(error));
+		}
+		airports.forEach(function(airport, i) {
+			let distance = Math.sqrt(
+				Math.pow(location.latitude - airport.latitude, 2) + 
+				Math.pow(location.longitude - airport.longitude, 2)
+			);
+
+			if( distance < nearestDistance ) {
+				nearestDistance = distance;
+				nearestAirport = airport;
+			}
+
+			if(i == airports.length-1) {
+				nearestAirport = {
+					code : nearestAirport.code,
+					city : nearestAirport.city,
+					state : nearestAirport.state
+				}
+				callback(null, nearestAirport);
+			}
+		});
+	});
+}
+
 Utils.prototype.getLongtudeAndLatitude = function(city, state, callback){
-	var location, data = '';
+	const doCallback = (longitude=null, latitude=null, error=false) => {
+		const location = { longitude, latitude };
+		if(error) {
+			console.log("ERROR on util.getLongtudeAndLatitude() : ", error);
+		}
+
+		callback(null, location);
+	}
+
 	request.get({
 		//Google Geocoding API
 		"url" : "https://maps.googleapis.com/maps/api/geocode/json?address=" + city + ",+" + state + "&key=" + process.env.googleAPIKey,
 	}, function(error, res, data){
 		data = JSON.parse(data);
-		try
-		{
-			location = {
-				latitude : data.results[0].geometry.location.lat, 
-				longitude : data.results[0].geometry.location.lng
-			}
+		if(data.error_message) {
+			doCallback(null, null, data.error_message)
 		}
-		catch(error)
-		{
-			console.log("ERROR on util.getLongtudeAndLatitude() : ", error);
+		try {
+			const latitude = data.results[0].geometry.location.lat;
+			const longitude = data.results[0].geometry.location.lng;
+
+			doCallback(longitude, latitude);
 		}
-		callback(null, location);
+		catch(error) {
+			doCallback(null, null, error);
+		}
 	});
 }
 
