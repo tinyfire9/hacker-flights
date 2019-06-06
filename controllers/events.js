@@ -25,7 +25,7 @@ exports.hackathonsListResponseHandler = function(airportLocation, socket){
 		}
 		else
 		{
-			HackerFlights.findFlights(city, state, socket);		
+			HackerFlights.listHackerFlights(city, state, socket);		
 		}
 	});
 }
