@@ -6,41 +6,9 @@ var request = require('request');
 var PublicAPI = function(){}
 
 PublicAPI.prototype.findNearestAirport = function(city, state, callback){
-	var nearestDistance = Infinity;
-	var nearestAirport = {
-		name : null,
-		code : null,
-		city : null,
-		state : null
-	};
 	utils.getLongtudeAndLatitude(city, state, function(error, location){
-		models.airports.find({}, function(error, airports){
-			if(error)
-			{
-				console.log(Error(error));
-			}
-			console.log({ error });
-			airports.forEach(function(airport, i){
-				var distance = Math.sqrt(
-					Math.pow(location.latitude - airport.latitude, 2) + 
-					Math.pow(location.longitude - airport.longitude, 2)
-					);
-				if( distance < nearestDistance )
-				{
-					nearestDistance = distance;
-					nearestAirport = airport;
-				}
-
-				if(i == airports.length-1)
-				{
-					nearestAirport = {
-						code : nearestAirport.code,
-						city : nearestAirport.city,
-						state : nearestAirport.state
-					}
-					callback(null, nearestAirport);
-				}
-			});
+		utils.getNearestAirportToLocation(location, (err, nearestAirport) => {
+			callback(null, nearestAirport);
 		});
 	});
 }
@@ -77,7 +45,6 @@ PublicAPI.prototype.getHackathons = function(callback){
 	var time = 500;
 	var allHackathons = [];
 	var urls = utils.getUrls();
-	var size = urls.length;
 	urls.forEach(function(hackathons, i){
 		utils.httpRequest(urls[i], function(hackathons){
 			if(hackathons)
