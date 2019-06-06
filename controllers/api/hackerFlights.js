@@ -49,8 +49,6 @@ HackerFlights.prototype.findHackerFlight = (params, callback) => {
 				throw Error(error);
 			}
 
-			console.log({ location, startDate, endDate, nearestAirportToHackathon, priceData });
-
 			data = {
 				hackathonName : hackathon.title,
 				dates : [startDate, endDate],
