@@ -1,7 +1,8 @@
 var HackerFlights = require('./api/hackerFlights.js'),
-		utils = require('./utils/utils.js'),
-		socket = require('socket.io'),
-		airportLocation;
+	PublicAPIs = require('./api/publicAPI'),
+	utils = require('./utils/utils.js'),
+	socket = require('socket.io'),
+	airportLocation;
 		
 exports.hackathonsListResponseHandler = function(airportLocation, socket){
 	var location = airportLocation.split(', ');
@@ -29,3 +30,23 @@ exports.hackathonsListResponseHandler = function(airportLocation, socket){
 		}
 	});
 }
+
+exports.listAutocompletePlaces = function(input, sessionToken, socket) {
+	PublicAPIs.listAutocompletePlaces(input, sessionToken, (err, places) => {
+		//emit places
+		if (err) {
+			socket.emit('hackerFlights.placesAutoComplete', {
+				message: JSON.stringify(err),
+				status: 500,
+				places: [],
+			});
+		} else {
+			socket.emit('hackerFlights.placesAutoComplete', {
+				message: null,
+				status: 200,
+				places,
+			});
+		}
+	})
+}
+

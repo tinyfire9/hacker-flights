@@ -1,5 +1,3 @@
-var socket = io();
-
 angular.module('hackerFlights.hackathons', ['ui.router'])
 .config(function($stateProvider){
 	$stateProvider.state('hackathons', {

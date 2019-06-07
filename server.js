@@ -36,4 +36,8 @@ io.on('connection', function(socket){
 	socket.on('hackerFlights.airportLocation', function(data){
 		events.hackathonsListResponseHandler(data.airportLocation, socket);
 	});
+	
+	socket.on('hackerFlights.listAutocompletePlaces', function(data) {
+		events.listAutocompletePlaces(data.input, 'sessionToken', socket);
+	})
 });

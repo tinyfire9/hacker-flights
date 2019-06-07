@@ -7,6 +7,15 @@ angular.module('hackerFlights.home', [])
 		});
 	})
 	.controller('homeController', function($scope, $location){
+		socket.on('hackerFlights.placesAutoComplete', ({ places }) => {
+		});
+
+		$scope.listAutocompletePlaces = function() {
+			socket.emit('hackerFlights.listAutocompletePlaces', {
+				input: $scope.airportLocation,
+			});
+		}
+
 		$scope.listPrices = function(airportLocation){
 			$location.path('/hackathons/' + airportLocation);
 		}

@@ -64,4 +64,32 @@ PublicAPI.prototype.getHackathons = function(callback){
 	}, urls.length* time);
 }
 
+PublicAPI.prototype.listAutocompletePlaces = function(input, sessionToken, callback) {
+	const baseURL = 'https://maps.googleapis.com';
+	const route = '/maps/api/place/autocomplete/json';
+	const params = `key=${process.env.googleAPIKey}&input=${input}&types=(regions)`; // add token=${sessionToken}&
+	const url = `${baseURL + route}?${params}`;
+
+	request.get({ url }, (error, { body }) => {
+		if(error){
+			console.log(Error(error));
+			callback(error, []);
+		}
+
+		let data = {};
+		try {
+			data = JSON.parse(body)
+		} catch(e) {
+			console.log(Error(e));
+			callback(e, []);
+		}
+
+		const places = data.predictions.map(({ terms }) => {
+			return `${terms[0].value}, ${terms[1].value}`;
+		});
+
+		callback(null, places);
+	})
+}
+
 module.exports = new PublicAPI();
