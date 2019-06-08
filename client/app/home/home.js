@@ -1,8 +1,25 @@
+class Token {
+	LOCAL_STORAGE_TOKEN_KEY = 'hacker_flights_places_token'
+	getTokenFromLocalStorage = () => {
+		let token = localStorage.getItem(this.LOCAL_STORAGE_TOKEN_KEY);
+		if (!token) {
+			token = window.createUUID();
+			localStorage.setItem(this.LOCAL_STORAGE_TOKEN_KEY, token);
+		}
+
+		return token;
+	}
+	
+	removeTokenFromLocalStorage = () => {
+		localStorage.removeItem(this.LOCAL_STORAGE_TOKEN_KEY);
+		console.log(`Token removed: ${localStorage.getItem(this.LOCAL_STORAGE_TOKEN_KEY)}`);
+	}
+}
 
 class RowOptions {
 	rowOptionOnClick = (place) => {
 		return () => {
-			token.removeTokenFromLocalStorage();
+			tokenInstance.removeTokenFromLocalStorage();
 			const dropdownElement = document.getElementsByClassName('autocomplete')[0];
 			const searchButtom = document.getElementById('search-button');
 			
@@ -52,25 +69,7 @@ class RowOptions {
 	}
 }
 
-class Token {
-	LOCAL_STORAGE_TOKEN_KEY = 'hacker_flights_places_token'
-	getTokenFromLocalStorage = () => {
-		let token = localStorage.getItem(this.LOCAL_STORAGE_TOKEN_KEY);
-		if (!token) {
-			token = window.createUUID();
-			localStorage.setItem(this.LOCAL_STORAGE_TOKEN_KEY, token);
-		}
-
-		return token;
-	}
-	
-	removeTokenFromLocalStorage = () => {
-		localStorage.removeItem(this.LOCAL_STORAGE_TOKEN_KEY);
-		console.log(`Token removed: ${localStorage.getItem(this.LOCAL_STORAGE_TOKEN_KEY)}`);
-	}
-}
-
-const token = new Token();
+const tokenInstance = new Token();
 
 angular.module('hackerFlights.home', [])
 	.config(function($stateProvider){
@@ -89,7 +88,7 @@ angular.module('hackerFlights.home', [])
 		$scope.listAutocompletePlaces = function() {
 			socket.emit('hackerFlights.listAutocompletePlaces', {
 				input: $scope.airportLocation,
-				token: token.getTokenFromLocalStorage(),
+				token: tokenInstance.getTokenFromLocalStorage(),
 			});
 		}
 
