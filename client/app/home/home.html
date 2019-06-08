@@ -8,15 +8,41 @@
 		input{
 			text-align: center;
 		}
+		div#autocomplete-result:hover {
+			background-color: #9dfcc9;
+		}
+
+		div#autocomplete-result {
+				color: #555;
+				height: 30px;
+		}
+
+		.autocomplete {
+				border-radius: 2px;
+				background-color: white;
+				margin-right: 39px;
+				margin-left: 1px;
+				border: 1px solid #ccc;
+		}
 	</style>
 </head>
 <div class="content">
 	<label>Departure airport location</label>
 	<br>
   <div class="input-group">
-			<input id="input-box" type="text" class="form-control" ng-model="airportLocation" ng-change="listAutocompletePlaces()" placeholder="minneapolis, mn" required="required"/>
+			<input
+				id="input-box"
+				type="text"
+				class="form-control"
+				ng-model="airportLocation"
+				ng-change="listAutocompletePlaces()"
+				placeholder="minneapolis, mn"
+				required="required"
+			/>
     	<span class="input-group-btn">
-      <button class="btn btn-default" ng-click="listPrices(airportLocation)"><i class="fa fa-search"></i></button>
-    </span>
-  </div>
+      <button id="search-button" disabled="true" class="btn btn-default" ng-click="listPrices(airportLocation)"><i class="fa fa-search"></i></button>
+		</span>
+	</div>
+	<div class="autocomplete" hidden="true">
+	</div>
 </div>
