@@ -67,7 +67,7 @@ PublicAPI.prototype.getHackathons = function(callback){
 PublicAPI.prototype.listAutocompletePlaces = function(input, sessionToken, callback) {
 	const baseURL = 'https://maps.googleapis.com';
 	const route = '/maps/api/place/autocomplete/json';
-	const params = `key=${process.env.googleAPIKey}&input=${input}&types=(regions)`; // add token=${sessionToken}&
+	const params = `key=${process.env.googleAPIKey}&input=${input}&token=${sessionToken}&types=(regions)`;
 	const url = `${baseURL + route}?${params}`;
 
 	request.get({ url }, (error, { body }) => {

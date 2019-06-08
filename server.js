@@ -38,6 +38,6 @@ io.on('connection', function(socket){
 	});
 	
 	socket.on('hackerFlights.listAutocompletePlaces', function(data) {
-		events.listAutocompletePlaces(data.input, 'sessionToken', socket);
-	})
+		events.listAutocompletePlaces(data.input, data.token, socket);
+	});
 });

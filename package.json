@@ -1,16 +1,22 @@
 {
   "name": "hackerflights",
   "version": "1.0.0",
+  "scripts": {
+    "start": "npm run browserify-node-uuid && node server.js",
+    "browserify-node-uuid": "browserify client/util/uuid.js > client/util/browser-uuid.js"
+  },
   "dependencies": {
     "body-parser": "^1.11.0",
     "errorhandler": "^1.3.3",
     "express": "^4.11.2",
     "method-override": "^2.3.1",
     "mongoose": "^4.1.0",
+    "node-uuid": "^1.4.8",
     "node-xlsx": "^0.6.0",
     "nodemailer": "^1.4.0",
     "request": "^2.53.0",
     "serve-static": "^1.8.1",
-    "socket.io": "^1.3.6"
+    "socket.io": "^1.3.6",
+    "uuid": "^3.3.2"
   }
 }
