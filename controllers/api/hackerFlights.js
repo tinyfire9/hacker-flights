@@ -13,6 +13,14 @@ HackerFlights.prototype.listHackerFlights = function(city, state, socket){
 		}
 
 		PublicAPI.getHackathons(function(hackathons){
+			if (hackathons.length === 0) {
+				socket.emit('hackerFlights.hackathon', { 
+					hackathon : [],
+					status : 200,
+					message : null 
+				});
+				return;
+			}
 			hackathons.forEach(function(hackathon, index){
 				const location = utils.parseLocation(hackathon.city);
 				const params = {
