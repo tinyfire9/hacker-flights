@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-connection = process.env.MONGOLAB_URI;
+connection = process.env.HACKER_FLIGHTS_MONGOLAB_URI;
 mongoose.connect(connection);
 
 module.exports = {

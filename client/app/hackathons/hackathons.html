@@ -23,7 +23,8 @@
 				</tr>
 		</thead>
 		<tbody>
-			<tr ng-hide="showErrorMessage()" ng-repeat = "hackathon in hackathons | filter : filterHackathon">
+			<tr ng-show="hackathons.length > 0" ng-repeat = "hackathon in hackathons | filter : filterHackathon">
+				{{hackathon}}
 				<td><a href="{{hackathon.url}}" target="_blank">{{hackathon.hackathonName}}</a></td>
 				<td >{{hackathon.dates[0]}} to {{hackathon.dates[1]}}</td>
 				<td>{{hackathon.location}}</td>
@@ -33,7 +34,7 @@
 					<a href="{{hackathon.flightDetailLink}}">Book on Kiwi</a>
 				</td>
 			</tr>
-			<tr ng-show="loadingInProgress()">
+			<tr ng-show="showSpinners == true">
 				<td><center><i class="fa fa-spinner fa-pulse"></i></center></td>
 				<td><center><i class="fa fa-spinner fa-pulse"></i></center></td>
 				<td><center><i class="fa fa-spinner fa-pulse"></i></center></td>
@@ -44,7 +45,7 @@
 		</tbody>
 	</table>
 
-	<div id="inputError" ng-show="showErrorMessage()" ng-if="loadingStarted() == true">	
-		<div class="alert alert-danger" role="alert">Location of airport is not found, please try again!</div>
+	<div id="noHackaton" ng-show="showNoHackathonMessage == true">	
+		<div class="alert alert-danger" role="alert">There are no hackathons available at the moment.</div>
 	</div>
 </div>

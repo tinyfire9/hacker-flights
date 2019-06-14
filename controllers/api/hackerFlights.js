@@ -15,7 +15,7 @@ HackerFlights.prototype.listHackerFlights = function(city, state, socket){
 		PublicAPI.getHackathons(function(hackathons){
 			if (hackathons.length === 0) {
 				socket.emit('hackerFlights.hackathon', { 
-					hackathon : [],
+					hackathon : null,
 					status : 200,
 					message : null 
 				});

@@ -7,29 +7,35 @@ angular.module('hackerFlights.hackathons', ['ui.router'])
 	});
 })
 .controller("hackathonsController" ,function($scope, $rootScope, $stateParams){
-	socket.emit('hackerFlights.airportLocation', { airportLocation : $stateParams.airportLocation});
 	$scope.hackathons = [];
-	socket.on('hackerFlights.hackathon', function(data){
-		console.log(data);
-		$rootScope.$apply(function(){
-			$scope.hackathons.push(data.hackathon);
-		});
-		console.log($scope.hackathons.length);
+	$scope.showNoHackathonMessage = false;
+	$scope.showSpinners = true;
+
+	socket.emit('hackerFlights.airportLocation', {
+		airportLocation : $stateParams.airportLocation
 	});
-	$scope.loadingStarted = function(){
-		return $scope.hackathons.length > 0;
-	}
-	$scope.loadingInProgress = function(){
-		console.log($scope.hackathons.length)
-		if($scope.hackathons[0] == null)
-		{
-			return true;
-		}
-		return $scope.hackathons[0].numberOfHackathons != $scope.hackathons.length;
-	}
-	$scope.showErrorMessage= function(){
-		return $scope.hackathons[0] == null;
-	}
+
+	socket.on('hackerFlights.hackathon', function({ hackathon }){
+		$rootScope.$apply(function(){
+			if( hackathon ) {
+				$scope.hackathons.push(hackathon);
+			} else {
+				$scope.showSpinners = false;
+				$scope.showNoHackathonMessage = true;
+
+				return;
+			}
+
+			if(hackathon == null) { 
+				$scope.showSpinners = false;
+				$scope.showNoHackathonMessage = true;
+			} else if(hackathon.numberOfHackathons == $scope.hackathons.length) {
+				$scope.showSpinners = false;
+				$scope.showNoHackathonMessage = false;	
+			}
+		});
+	});
+	
 });
 
 // helper function that concatinates '0' on single digit numbers 
