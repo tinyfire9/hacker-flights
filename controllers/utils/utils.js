@@ -74,6 +74,9 @@ Utils.prototype.getUrls = function(){
 			urls.push(baseUrl + endPoint);
 		};
 	};
+
+	// urls.push('http://www.hackalist.org/api/1.0/2018/09.json');
+
 	return urls;
 }
 
@@ -101,39 +104,36 @@ Utils.prototype.jsonpToJson = function(string){
 	return(string);
 }
 
-Utils.prototype.getNearestAirportFromLocation = function(location, callback) {
-	let nearestDistance = Infinity;
-	let nearestAirport = {
-		name : null,
-		code : null,
-		city : null,
-		state : null
-	};
-
+Utils.prototype.getTop10NearestAirportsFromLocation = function(location, callback) {
 	models.airports.find({}, function(error, airports){
 		if(error) {
 			console.log(Error(error));
 		}
-		airports.forEach(function(airport, i) {
-			let distance = Math.sqrt(
-				Math.pow(location.latitude - airport.latitude, 2) + 
-				Math.pow(location.longitude - airport.longitude, 2)
+		
+		const top10NearestAirports = airports.sort((airport1, airport2) => {
+			let distance1 = Math.sqrt(
+				Math.pow(location.latitude - airport1.latitude, 2) + 
+				Math.pow(location.longitude - airport1.longitude, 2)
+			);
+			let distance2 = Math.sqrt(
+				Math.pow(location.latitude - airport2.latitude, 2) +
+				Math.pow(location.longitude - airport2.longitude, 2)
 			);
 
-			if( distance < nearestDistance ) {
-				nearestDistance = distance;
-				nearestAirport = airport;
+			if ( distance1 < distance2 ) {
+				return -1;
+			} else if ( distance1 > distance2 ) {
+				return 1;
 			}
 
-			if(i == airports.length-1) {
-				nearestAirport = {
-					code : nearestAirport.code,
-					city : nearestAirport.city,
-					state : nearestAirport.state
-				}
-				callback(null, nearestAirport);
-			}
-		});
+			return 0;
+		})
+		.slice(0, 10)
+		.map(
+			({ code, city, state}) => ({ code, city, state }),
+		);
+
+		callback(null, top10NearestAirports);
 	});
 }
 

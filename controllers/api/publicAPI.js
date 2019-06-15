@@ -7,8 +7,8 @@ var PublicAPI = function(){}
 
 PublicAPI.prototype.findNearestAirport = function(city, state, callback){
 	utils.getLongtudeAndLatitude(city, state, function(error, location){
-		utils.getNearestAirportFromLocation(location, (err, nearestAirport) => {
-			callback(null, nearestAirport);
+		utils.getTop10NearestAirportsFromLocation(location, (err, nearestAirports) => {
+			callback(null, nearestAirports);
 		});
 	});
 }

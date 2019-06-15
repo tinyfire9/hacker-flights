@@ -10,14 +10,25 @@ angular.module('hackerFlights.hackathons', ['ui.router'])
 	$scope.hackathons = [];
 	$scope.showNoHackathonMessage = false;
 	$scope.showSpinners = true;
+	$scope.selectedNearestAirportToOrigin = '';
+	$scope.top10NearestAirportsToOrigin = [];
+	$scope.isTop10NearestAirportsToOriginFetched = false
 
-	socket.emit('hackerFlights.airportLocation', {
-		airportLocation : $stateParams.airportLocation
-	});
+	const listHackerFlights = (airportLocation) => {
+		socket.emit('hackerFlights.airportLocation', { airportLocation });
+	};
+
+	listHackerFlights($stateParams.airportLocation);
 
 	socket.on('hackerFlights.hackathon', function({ hackathon }){
 		$rootScope.$apply(function(){
 			if( hackathon ) {
+				if (!$scope.isTop10NearestAirportsToOriginFetched) {
+					$scope.isTop10NearestAirportsToOriginFetched = true;
+					$scope.top10NearestAirportsToOrigin = hackathon.nearestAirportsToOrigin;
+				}
+				$scope.selectedNearestAirportToOrigin = hackathon.originLocation;
+
 				$scope.hackathons.push(hackathon);
 			} else {
 				$scope.showSpinners = false;
@@ -35,7 +46,14 @@ angular.module('hackerFlights.hackathons', ['ui.router'])
 			}
 		});
 	});
-	
+
+	$scope.fetchPricesForANearestAirport = (airport) => {
+		$scope.hackathons = [];
+		$scope.showSpinners = true;
+		$scope.showNoHackathonMessage = false;
+		$scope.selectedNearestAirportToOrigin = airport;
+		listHackerFlights(airport);
+	}
 });
 
 // helper function that concatinates '0' on single digit numbers 

@@ -4,11 +4,41 @@
 			text-align: center;
 			max-width: 90%;
 		}
+		.header {
+			display: flex;
+		}
+		button#dropdownMenu1 {
+			min-width: 100%;
+		}
+		.btn .caret {
+			margin-left: 20px;
+		}
 	</style>
 </head>
 <div class="content">	
-	<div id="inputError">
-		<input type="text" class="form-control" ng-model="filterHackathon" placeholder="Search by hackathon name">
+	<div class="header">
+		<div class="dropdown col-md-4">
+				<button
+					class="btn btn-default dropdown-toggle"
+					type="button"
+					id="dropdownMenu1"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="true"
+				>
+				{{ selectedNearestAirportToOrigin }}
+				<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					<li 
+						ng-repeat="airport in top10NearestAirportsToOrigin"
+						ng-click="fetchPricesForANearestAirport(airport.city + ', ' + airport.state)"
+					>
+					{{ airport.city }}, {{ airport.state }}
+					</li>
+				</ul>
+			</div>
+			<input type="text" class="form-control col-md-8" ng-model="filterHackathon" placeholder="Search by hackathon name">
 	</div>
 
 	<table class="table table-hover">
