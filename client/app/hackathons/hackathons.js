@@ -7,16 +7,38 @@ angular.module('hackerFlights.hackathons', ['ui.router'])
 	});
 })
 .controller("hackathonsController" ,function($scope, $rootScope, $stateParams){
+	const makeSelectedNearestAirportObject = (cityAndState = '', code = '') => {
+		return {
+			cityAndState, code
+		};
+	};
+
 	$scope.hackathons = [];
 	$scope.showNoHackathonMessage = false;
 	$scope.showSpinners = true;
-	$scope.selectedNearestAirportToOrigin = '';
+	$scope.selectedNearestAirportToOrigin = makeSelectedNearestAirportObject();
+	$scope.selectedNearestAirportToHackathon = makeSelectedNearestAirportObject();
 	$scope.top10NearestAirportsToOrigin = [];
 	$scope.isTop10NearestAirportsToOriginFetched = false
 
 	const listHackerFlights = (airportLocation) => {
 		socket.emit('hackerFlights.airportLocation', { airportLocation });
 	};
+
+	$scope.getCheapestPrice = ({ airportCode: destination, dates }, { code: origin }) => {
+		socket.emit('hackerFlights.getCheapestPrice', {
+			origin,
+			destination,
+			departureDate: dates[0],
+			returnDate: dates[1],
+		});
+	}
+
+	socket.on('hackerFlights.getCheapestPrice', (data) => {
+		console.log({
+			data
+		});
+	});
 
 	listHackerFlights($stateParams.airportLocation);
 
@@ -27,7 +49,10 @@ angular.module('hackerFlights.hackathons', ['ui.router'])
 					$scope.isTop10NearestAirportsToOriginFetched = true;
 					$scope.top10NearestAirportsToOrigin = hackathon.nearestAirportsToOrigin;
 				}
-				$scope.selectedNearestAirportToOrigin = hackathon.originLocation;
+				$scope.selectedNearestAirportToOrigin = makeSelectedNearestAirportObject(
+					hackathon.originLocation,
+					hackathon.originalLocationCode
+				);
 
 				$scope.hackathons.push(hackathon);
 			} else {
@@ -47,11 +72,14 @@ angular.module('hackerFlights.hackathons', ['ui.router'])
 		});
 	});
 
-	$scope.fetchPricesForANearestAirport = (airport) => {
+	$scope.fetchPricesForANearestAirport = (airport, airportCode) => {
 		$scope.hackathons = [];
 		$scope.showSpinners = true;
 		$scope.showNoHackathonMessage = false;
-		$scope.selectedNearestAirportToOrigin = airport;
+		$scope.selectedNearestAirportToOrigin = makeSelectedNearestAirportObject(
+			airport,
+			airportCode
+		);
 		listHackerFlights(airport);
 	}
 });

@@ -26,13 +26,13 @@
 					aria-haspopup="true"
 					aria-expanded="true"
 				>
-				{{ selectedNearestAirportToOrigin }}
+				{{ selectedNearestAirportToOrigin.cityAndState }}
 				<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 					<li 
 						ng-repeat="airport in top10NearestAirportsToOrigin"
-						ng-click="fetchPricesForANearestAirport(airport.city + ', ' + airport.state)"
+						ng-click="fetchPricesForANearestAirport(airport.city + ', ' + airport.state, airport.code)"
 					>
 					{{ airport.city }}, {{ airport.state }}
 					</li>

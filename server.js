@@ -40,4 +40,8 @@ io.on('connection', function(socket){
 	socket.on('hackerFlights.listAutocompletePlaces', function(data) {
 		events.listAutocompletePlaces(data.input, data.token, socket);
 	});
+
+	socket.on('hackerFlights.getCheapestPrice', ({ origin, destination, departureDate, returnDate }) => {
+		events.getChipestPrice(origin, destination, departureDate, returnDate, socket);
+	})
 });

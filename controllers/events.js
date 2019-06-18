@@ -50,3 +50,13 @@ exports.listAutocompletePlaces = function(input, sessionToken, socket) {
 	})
 }
 
+exports.getChipestPrice = (origin, destination, departureDate, returnDate, socket) => {
+	PublicAPIs.getCheapestPrice(origin, destination, departureDate, returnDate, (err, { price, detailLink }) => {
+		socket.emit('hackerFlights.getCheapestPrice', {
+			message: null,
+			status: 200,
+			price,
+			detailLink
+		});
+	});
+}
